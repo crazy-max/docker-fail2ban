@@ -1,0 +1,17 @@
+version: '3.2'
+
+services:
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    container_name: fail2ban
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./db:/var/lib/fail2ban
+      - ./jail.d:/etc/fail2ban/jail.d
+      - /var/log:/var/log
+    environment:
+      - TZ=Europe/Paris
+      - LOG_LEVEL=INFO
+      - DB_PURGE_AGE=1d
+    restart: always

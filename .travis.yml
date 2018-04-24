@@ -1,0 +1,65 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - VERSION=0.10.3.1
+    - GITHUB_REPO=crazy-max/docker-fail2ban
+    - DOCKER_USERNAME=crazymax
+    - DOCKER_REPONAME=fail2ban
+    - QUAY_USERNAME=crazymax
+    - QUAY_REPONAME=fail2ban
+    - DOCKER_VERSION=17.12.0~ce-0~ubuntu
+    - COMPOSE_VERSION=1.18.0
+    - secure: c7stP+Z57I3Ve6RXg6BgGAe/y0AP6T4wCPvwHRhPt77YvKmTWwhz3kVPtd7ecIUnTsnc9OvTRLoqTjQGwY95gdrcE6Dr0Ki9lns2NBfXeAnRO/BFFZn6vcwiT/dTLSIxf8UdqebGt94NvFWTCGYe4Usqvs9tF2Q7pPo9aDu5yKz+/DeaQKhvp+xIAfrtkLqACnW1ddmzx9JnKfzXrMMjwN339qdqYkyT1e5Nvu1r+jldB80Pi6Rx26ivWFdUg86LG4LBWORZrzcWKX6OSmLFD0NqUZsY92eydZ/3uZjwSw4jNd6g2jhzoIFyjkEDceMBlklzQ98U5K8X+IFx0E/3GJcJQq2vAfiLwrHtJc/AfxbBI62C+tZGMbqiW7t3tE3X5t/m18vzItck+FG0zqiF9Iwxzi7O2Yhtb+m/4vYiwZIlJMdLJAWIgXJCNd31Xyxp+PA5nNPWeYwWe4RbCECPZK4L0oTAbPnONsYYkRbQMU1Lv5zYchqKY9Pp+JAQQCp9OY1iZcwc32rbrbc3UKQbQgGAVuZRegpCJE4MUffOpp8x98RaKsD6R2iatJG2cx1kE4odiBy6ErtIPuwq6fHjHuDwrxpE4VjoNrHNGSUpWdpUc1srgLJO3WtHdKX42lFeRLJqcLvsjmm0+DU7PYF0BTxSk9dUb8FllJOG3UM1QZ8= # DOCKER_PASSWORD
+    - secure: EsXO8+aS72Ca9DaYXhl6pzjwDENiSvgfQX4ipSMHkQ95a5ii864QUVETuPzXRBjz8HehpEHUeWWDYf0sPsuDZuRfd5secqa/60zAxH9KXCXnXLUTyw9qrWI7UZdl/ZAy3IKh0SUAX78F7jjnuIqJLgU64x3obR+kB05M8S0LE3u+SYc4IM7EXWyq6VC7XiMQiwErW99bi3hJPxU3eb+xvGMIP54IfiIvnPDZPfONZGsRfg+wUzLR2QJs+VMp5Z0Yz0W7aRguFE8odXX+9vubnnw2Qn7dkN3LqlTTdmXokZDl5zjpJADsRUsZv4ezhdRwaPtvAk9O7UNU8g31coKDbBIxGuspLZtZbF8YT0tuNFzCg7YlAOMXCiU06XmCEcvT92ttu+I6lCiB58KDe4xd5FUPT9Mc4dYc/j0n7839kI2ltxU7LzX48jfjSlY695fsbJR7cTVfNVQ8reWMpD0shRKQFg1hM5EWodPRJvYPm4ABAlZMDPdrANJtBCEAQxGCMBej10Lj0werg0T6vhqknyyE6XTgUgC84R0fLUfJR0Jnths/ZGO8kDBngVUKao5eRFIemODJmmUeeYl7o8cfDDhJ/uk4WLYCoH001oNa+jlbP1VKogrmc4Qq3AK67KlImVlFq5wD75ZUY4miKEk0MWJjp16nEu5QDNkzYB0OXP0= # QUAY_PASSWORD
+    - secure: qyCq+APlCNEK/GhZauSWlz4QYWXtGLajz5jISz5O+IsHMV56vJ5fvwl6NzmmdXPpP6mfQ0i8HrJnEhYm4PMjJ/znf+TKeP67cpq+IIHqQkGTnmROhac2jDgy/dht7lINTTb6Dwh3bzqGyN3Z2nbYJRHQPQl7X5X3MSYF2ZXNDdJm6npYJ6WZtXLIzoVAZGPfj4X1BqeSRq7gs721U2NwvA0S+p5qJA1crRzhDJwiDEYSWDxmxbF7PwmLF28mIOVLmX7UrocKI2E5q97n19+yQqSpRgrlSYYd4Ti7G6+qSk1rL+qmh7J2jUAnczczejl5BiJnRAxPALFoD69vgUhgvPKucemlkcvvXQRbHbnX7Qd8R7gFt+Gg1EZXjK64ESAM1chvZ/JIyzSXn5gvDXrBUoJul97IkHrFmS7Y+iufH4pAIxXoJjrWtJOZ/ZGmVHUON9mcQB2Ep/bq5m6KvdWrqXDXRUZaP6C3Fdx7R+Ojx/mUBRsuAokuuXJI/DBMgcfCAdUXrElkLDwYP7UlfuI49u5F8mdf0vriDwLFCoykEZqHw/lhnPg4PX72868s6fh1EP2xigtPap9efUAbn8x4KmrknHIAp5ts/CUB4YGs9+qyk0dMwHHY4lNLEAe0r7MrUmWTy2YMD8wyiVkOQFhqBhj/OfYtxCHmnm8bDP4+TJQ= # GITHUB_TOKEN
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-cache madison docker-ce
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce=${DOCKER_VERSION}
+  - docker --version
+  - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose --version
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+  - export DOCKER_TAG=$(if [ "$BRANCH" == "master" ]; then echo "latest"; else echo $BRANCH; fi)
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH, DOCKER_TAG=$DOCKER_TAG"
+
+install:
+  - |
+    docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+    --build-arg VCS_REF=${TRAVIS_COMMIT::8} \
+    --build-arg VERSION=${VERSION} \
+    -t $DOCKER_USERNAME/$DOCKER_REPONAME .
+
+before_script:
+  - docker run -d --name $DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME
+  - sleep 10
+  - docker logs $DOCKER_REPONAME
+
+script:
+  - docker ps | grep $DOCKER_REPONAME
+
+after_success:
+  - test $TRAVIS_PULL_REQUEST = false
+    && echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+    && docker tag $DOCKER_USERNAME/$DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME:$DOCKER_TAG
+    && docker tag $DOCKER_USERNAME/$DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME:$VERSION
+    && docker push $DOCKER_USERNAME/$DOCKER_REPONAME
+    && echo "$QUAY_PASSWORD" | docker login quay.io --username "$QUAY_USERNAME" --password-stdin
+    && docker tag $DOCKER_USERNAME/$DOCKER_REPONAME quay.io/$DOCKER_USERNAME/$DOCKER_REPONAME:$DOCKER_TAG
+    && docker tag $DOCKER_USERNAME/$DOCKER_REPONAME quay.io/$DOCKER_USERNAME/$DOCKER_REPONAME:$VERSION
+    && docker push quay.io/$QUAY_USERNAME/$QUAY_REPONAME
+
+branches:
+  except:
+    - /^[0-9]/
+
+notifications:
+  webhooks:
+    secure: quzDnlL1u6Of8Is85yI2fL5c8b8uJXimoKtdDd1Y+llcQpTVPpI2psKdb0Lz25SA+i5y0W8MuI1V0TWyP2utMxdiimZ61Q1HW6LtVE3qwKCsLXVT+wNsnqqj+8PqTIf4s1gl/xTvbpndwBkRurdLhlxp/s9bFSZANo0+7C0OdtHZRW/w9PvxS3JZ+A6FHBjHrcuBMuLKsR8vUf2LFxftyGW/OUc6px7YtSgPrxwkcLQydpqDkqBffX9iaTfinrsIOxm4y43f6hlJVzVrPdiIVYYUagcQHmUWVDOctRovnSpPBKSjRcKCVRDYtmztpj8ogrmkn4XHEZbyLJ7ohrkcziJPd7OGLHWJ7Uj7EKIbh874Ec+AR1zRNf9Fd3MxCdiWJQ30js5X7uM3gRKV++Bc/VsHPeRz3HAqi1ftpFEMupBUMkesbzYDGTdVAaT11mHHxe2fqZXSr3iXPQQ0CLfel7GeHizdrmuOBrTRtjgtKQzMPHxlyLjybxdQi6W+NDAIkhFhMrrZQKODCPuf3zJFG6O+3pTyvYZyDLhau3pJ0EXmKo2hDDKHsumQhe1JTdeVKbya6zEb3ALoQRc6FdtjftRvtOhoA9vfp6K7VklwuwvymWLLlvn9mih6XYf+2IWAQfI3a+s6tiMVH8hXxl5xRG3w524Y5tnYgBJrlrGzrrA=
