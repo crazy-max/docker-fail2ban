@@ -20,8 +20,18 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 ### Environment variables
 
 * `TZ` : The timezone assigned to the container (default `UTC`)
-* `LOG_LEVEL` : Log level output (default `INFO`)
-* `DB_PURGE_AGE` : Age at which bans should be purged from the database (default `1d`)
+* `F2B_LOG_LEVEL` : Log level output (default `INFO`)
+* `F2B_DB_PURGE_AGE` : Age at which bans should be purged from the database (default `1d`)
+* `F2B_MAX_RETRY` : Number of failures before a host get banned (default `5`)
+* `F2B_DEST_EMAIL` : Destination email address used solely for the interpolations in configuration files (default `root@localhost`)
+* `F2B_SENDER` : Sender email address used solely for some actions (default `root@$(hostname -f)`)
+* `F2B_ACTION` : Default action on ban (default `%(action_mwl)s`)
+* `SSMTP_HOST` : SMTP server host
+* `SSMTP_PORT` : SMTP server port (default `25`)
+* `SSMTP_HOSTNAME` : Full hostname (default `$(hostname -f)`)
+* `SSMTP_USER` : SMTP username
+* `SSMTP_PASSWORD` : SMTP password
+* `SSMTP_TLS` : SSL/TLS (default `NO`)
 
 ### Volumes
 
@@ -73,7 +83,7 @@ docker run -it --privileged --network host --name fail2ban \
   -v $(pwd)/db:/var/lib/fail2ban \
   -v $(pwd)/jail.d:/etc/fail2ban/jail.d \
   -v /var/log:/var/log \
-  -e LOG_LEVEL=DEBUG \
+  -e F2B_LOG_LEVEL=DEBUG \
   crazymax/fail2ban:latest
 ```
 

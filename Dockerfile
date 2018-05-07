@@ -18,11 +18,12 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 ARG FAIL2BAN_VERSION=0.10.3.1
 
 RUN apk --update --no-cache add \
-    iptables python3 python3-dev py-setuptools tzdata wget \
+    iptables python3 python3-dev py-setuptools ssmtp tzdata wget \
   && cd /tmp && wget https://github.com/fail2ban/fail2ban/archive/${FAIL2BAN_VERSION}.zip \
   && unzip ${FAIL2BAN_VERSION}.zip \
   && cd fail2ban-${FAIL2BAN_VERSION} \
   && python setup.py install \
+  && cp -f /etc/ssmtp/ssmtp.conf /etc/ssmtp/ssmtp.conf.or \
   && rm -rf /var/cache/apk/* /tmp/*
 
 ADD entrypoint.sh /entrypoint.sh
@@ -33,3 +34,6 @@ VOLUME [ "/etc/fail2ban/jail.d", "/var/lib/fail2ban" ]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "fail2ban-server", "-f", "-x", "-v", "start" ]
+
+HEALTHCHECK --interval=10s --timeout=5s \
+  CMD fail2ban-client ping
