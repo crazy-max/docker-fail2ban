@@ -7,9 +7,9 @@ services:
     privileged: true
     network_mode: host
     volumes:
-      - ./db:/var/lib/fail2ban
-      - ./jail.d:/etc/fail2ban/jail.d
-      - /var/log:/var/log
+      - "./db:/var/lib/fail2ban"
+      - "./jail.d:/etc/fail2ban/jail.d"
+      - "/var/log:/var/log"
     environment:
       - "TZ=Europe/Paris"
       - "F2B_LOG_LEVEL=INFO"

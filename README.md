@@ -18,19 +18,21 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Environment variables
 
-* `TZ` : The timezone assigned to the container (default `UTC`)
-* `F2B_LOG_LEVEL` : Log level output (default `INFO`)
-* `F2B_DB_PURGE_AGE` : Age at which bans should be purged from the database (default `1d`)
-* `F2B_MAX_RETRY` : Number of failures before a host get banned (default `5`)
-* `F2B_DEST_EMAIL` : Destination email address used solely for the interpolations in configuration files (default `root@localhost`)
-* `F2B_SENDER` : Sender email address used solely for some actions (default `root@$(hostname -f)`)
-* `F2B_ACTION` : Default action on ban (default `%(action_mwl)s`)
-* `SSMTP_HOST` : SMTP server host
-* `SSMTP_PORT` : SMTP server port (default `25`)
-* `SSMTP_HOSTNAME` : Full hostname (default `$(hostname -f)`)
-* `SSMTP_USER` : SMTP username
-* `SSMTP_PASSWORD` : SMTP password
-* `SSMTP_TLS` : SSL/TLS (default `NO`)
+| Key                         | Default                | Description                               
+|-----------------------------|------------------------|-------------------------------------------
+| `TZ`                        | `UTC`                  | Timezone (e.g. `Europe/Paris`)
+| `F2B_LOG_LEVEL`             | `INFO`                 | Log level output
+| `F2B_DB_PURGE_AGE`          | `1d`                   | Age at which bans should be purged from the database
+| `F2B_MAX_RETRY`             | `5`                    | Number of failures before a host get banned
+| `F2B_DEST_EMAIL`            | `root@localhost`       | Destination email address used solely for the interpolations in configuration files
+| `F2B_SENDER`                | `root@$(hostname -f)`  | Sender email address used solely for some actions
+| `F2B_ACTION`                | `%(action_mwl)s`       | Default action on ban
+| `SSMTP_HOST`                |                        | SMTP server host
+| `SSMTP_PORT`                | `25`                   | SMTP server port
+| `SSMTP_HOSTNAME`            | `$(hostname -f)`       | Full hostname
+| `SSMTP_USER`                |                        | SMTP username
+| `SSMTP_PASSWORD`            |                        | SMTP password
+| `SSMTP_TLS`                 | `NO`                   | Enable SMTP SSL/TLS
 
 ### Volumes
 

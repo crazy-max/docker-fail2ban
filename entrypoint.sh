@@ -34,6 +34,9 @@ UseTLS=${SSMTP_TLS}
 UseSTARTTLS=${SSMTP_TLS}
 EOL
 fi
+unset SSMTP_HOST
+unset SSMTP_USER
+unset SSMTP_PASSWORD
 
 # Fail2ban conf
 echo "Setting Fail2ban configuration..."

@@ -1,10 +1,7 @@
 .dev
-
-# JetBrains
 .idea
 *.iml
 
-# Repo
 .git
 .res
 .editorconfig
