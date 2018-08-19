@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.3.1-RC4 (2018/08/19)
+
+* Add curl (Issue #1)
+
 ## 0.10.3.1-RC3 (2018/07/28)
 
 * Upgrade based image to Alpine Linux 3.8

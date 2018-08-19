@@ -18,8 +18,9 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 ARG FAIL2BAN_VERSION=0.10.3.1
 
 RUN apk --update --no-cache add \
-    iptables python3 python3-dev py-setuptools ssmtp tzdata wget \
-  && cd /tmp && wget https://github.com/fail2ban/fail2ban/archive/${FAIL2BAN_VERSION}.zip \
+    curl iptables python3 python3-dev py-setuptools ssmtp tzdata wget \
+  && cd /tmp \
+  && wget https://github.com/fail2ban/fail2ban/archive/${FAIL2BAN_VERSION}.zip \
   && unzip ${FAIL2BAN_VERSION}.zip \
   && cd fail2ban-${FAIL2BAN_VERSION} \
   && python setup.py install \

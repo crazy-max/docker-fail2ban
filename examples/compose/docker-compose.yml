@@ -8,20 +8,8 @@ services:
     network_mode: host
     volumes:
       - "./db:/var/lib/fail2ban"
-      - "./jail.d:/etc/fail2ban/jail.d"
-      - "/var/log:/var/log"
-    environment:
-      - "TZ=Europe/Paris"
-      - "F2B_LOG_LEVEL=INFO"
-      - "F2B_DB_PURGE_AGE=1d"
-      - "F2B_MAX_RETRY=3"
-      - "F2B_DEST_EMAIL=webmaster@example.com"
-      - "F2B_SENDER=fail2ban@example.com"
-      - "F2B_ACTION=%(action_mwl)s"
-      - "SSMTP_HOST=smtp.example.com"
-      - "SSMTP_PORT=587"
-      - "SSMTP_HOSTNAME=example.com"
-      - "SSMTP_USER=smtp@example.com"
-      - "SSMTP_PASSWORD="
-      - "SSMTP_TLS=YES"
+      - "./jail.d:/etc/fail2ban/jail.d:ro"
+      - "/var/log:/var/log:ro"
+    env_file:
+      - "./fail2ban.env"
     restart: always
