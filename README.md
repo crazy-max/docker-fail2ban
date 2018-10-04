@@ -53,7 +53,7 @@ docker-compose logs -f
 You can also use the following minimal command :
 
 ```bash
-docker run -d --privileged --network host --name fail2ban \
+docker run -d --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
   -v $(pwd)/db:/var/lib/fail2ban \
   -v $(pwd)/jail.d:/etc/fail2ban/jail.d:ro \
   -v /var/log:/var/log:ro \
@@ -78,7 +78,7 @@ maxretry    = 5
 And start the container :
 
 ```bash
-docker run -it --privileged --network host --name fail2ban \
+docker run -it --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
   -v $(pwd)/db:/var/lib/fail2ban \
   -v $(pwd)/jail.d:/etc/fail2ban/jail.d:ro \
   -v /var/log:/var/log:ro \
