@@ -8,8 +8,7 @@ services:
       - NET_ADMIN
       - NET_RAW
     volumes:
-      - "./db:/var/lib/fail2ban"
-      - "./jail.d:/etc/fail2ban/jail.d:ro"
+      - "./data:/data"
       - "/var/log:/var/log:ro"
     env_file:
       - "./fail2ban.env"

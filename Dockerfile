@@ -24,6 +24,7 @@ RUN apk --update --no-cache add \
   && unzip ${FAIL2BAN_VERSION}.zip \
   && cd fail2ban-${FAIL2BAN_VERSION} \
   && python setup.py install \
+  && rm -rf /etc/fail2ban/jail.d \
   && cp -f /etc/ssmtp/ssmtp.conf /etc/ssmtp/ssmtp.conf.or \
   && rm -rf /var/cache/apk/* /tmp/*
 
@@ -31,7 +32,7 @@ ADD entrypoint.sh /entrypoint.sh
 
 RUN chmod a+x /entrypoint.sh
 
-VOLUME [ "/etc/fail2ban/jail.d", "/var/lib/fail2ban" ]
+VOLUME [ "/data" ]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "fail2ban-server", "-f", "-x", "-v", "start" ]

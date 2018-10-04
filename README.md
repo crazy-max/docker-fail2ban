@@ -34,8 +34,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Volumes
 
-* `/etc/fail2ban/jail.d` : Folder of your customs jails
-* `/var/lib/fail2ban` : Contains Fail2ban persistent database
+* `/data` : Contains customs jails, actions and filters and Fail2ban persistent database
 
 ## Use this image
 
@@ -54,8 +53,7 @@ You can also use the following minimal command :
 
 ```bash
 docker run -d --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
-  -v $(pwd)/db:/var/lib/fail2ban \
-  -v $(pwd)/jail.d:/etc/fail2ban/jail.d:ro \
+  -v $(pwd)/data:/data \
   -v /var/log:/var/log:ro \
   crazymax/fail2ban:latest
 ```
@@ -79,8 +77,7 @@ And start the container :
 
 ```bash
 docker run -it --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
-  -v $(pwd)/db:/var/lib/fail2ban \
-  -v $(pwd)/jail.d:/etc/fail2ban/jail.d:ro \
+  -v $(pwd)/data:/data \
   -v /var/log:/var/log:ro \
   -e F2B_LOG_LEVEL=DEBUG \
   crazymax/fail2ban:latest
@@ -130,6 +127,12 @@ iptables -w -I INPUT -p tcp -m multiport --dports 22 -j f2b-sshd
 ```bash
 docker exec -it <CONTAINER> fail2ban-client set <JAIL> banip <IP>
 ```
+
+### Custom actions and filters
+
+Custom actions and filters can be added in `/data/action.d` and `/data/filter.d`. If you add an action/filter that already exists, it will be overriden.
+
+> :warning: Container has to be restarted to propagate changes
 
 ## How can I help ?
 

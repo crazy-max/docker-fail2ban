@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.4-RC2 (2018/10/05)
+
+* Allow to add custom actions and filters through `/data/action.d` and `/data/filter.d` folders (Issue #4)
+* Relocate database to `/data/db` and jails to `/data/jail.d` (breaking change, see README.md)
+
 ## 0.10.4-RC1 (2018/10/04)
 
 * Upgrade to Fail2ban 0.10.4
