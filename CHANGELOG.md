@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4-RC1 (2018/10/04)
+
+* Upgrade to Fail2ban 0.10.4
+
 ## 0.10.3.1-RC4 (2018/08/19)
 
 * Add curl (Issue #1)

@@ -15,7 +15,7 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.vendor="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
-ARG FAIL2BAN_VERSION=0.10.3.1
+ARG FAIL2BAN_VERSION=0.10.4
 
 RUN apk --update --no-cache add \
     curl iptables python3 python3-dev py-setuptools ssmtp tzdata wget \
