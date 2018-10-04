@@ -4,8 +4,9 @@ services:
   fail2ban:
     image: crazymax/fail2ban:latest
     container_name: fail2ban
-    privileged: true
-    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     volumes:
       - "./db:/var/lib/fail2ban"
       - "./jail.d:/etc/fail2ban/jail.d:ro"
