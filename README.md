@@ -52,7 +52,7 @@ docker-compose logs -f
 You can also use the following minimal command :
 
 ```bash
-docker run -d --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
+docker run -d --network host --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
   -v $(pwd)/data:/data \
   -v /var/log:/var/log:ro \
   crazymax/fail2ban:latest
@@ -76,7 +76,7 @@ maxretry    = 5
 And start the container :
 
 ```bash
-docker run -it --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
+docker run -it --network host --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
   -v $(pwd)/data:/data \
   -v /var/log:/var/log:ro \
   -e F2B_LOG_LEVEL=DEBUG \
