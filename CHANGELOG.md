@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4-RC3 (2018/10/06)
+
+* Add whois (Issue #6)
+
 ## 0.10.4-RC2 (2018/10/05)
 
 * Allow to add custom actions and filters through `/data/action.d` and `/data/filter.d` folders (Issue #4)
