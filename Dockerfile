@@ -18,7 +18,7 @@ LABEL maintainer="CrazyMax" \
 ARG FAIL2BAN_VERSION=0.10.4
 
 RUN apk --update --no-cache add \
-    curl iptables python3 python3-dev py-setuptools ssmtp tzdata wget whois \
+    curl ipset iptables python3 python3-dev py-setuptools ssmtp tzdata wget whois \
   && cd /tmp \
   && wget https://github.com/fail2ban/fail2ban/archive/${FAIL2BAN_VERSION}.zip \
   && unzip ${FAIL2BAN_VERSION}.zip \
