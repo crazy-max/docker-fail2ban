@@ -26,6 +26,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 * `F2B_DEST_EMAIL` : Destination email address used solely for the interpolations in configuration files (default `root@localhost`)
 * `F2B_SENDER` : Sender email address used solely for some actions (default `root@$(hostname -f)`)
 * `F2B_ACTION` : Default action on ban (default `%(action_)s`)
+* `F2B_IPTABLES_CHAIN` : Specifies the iptables chain to which the Fail2Ban rules should be added (default `DOCKER-USER`)
 * `SSMTP_HOST` : SMTP server host
 * `SSMTP_PORT` : SMTP server port (default `25`)
 * `SSMTP_HOSTNAME` : Full hostname (default `$(hostname -f)`)
@@ -66,7 +67,15 @@ docker run -d --name fail2ban --restart always \
 
 ## Notes
 
-### Example with sshd jail
+### `DOCKER-USER` chain
+
+In Docker 17.06 and higher through [docker/libnetwork#1675](https://github.com/docker/libnetwork/pull/1675), you can add rules to a new table called `DOCKER-USER`, and these rules will be loaded before any rules Docker creates automatically. This is useful to make `iptables` rules created by Fail2Ban persistent.
+
+If you have an older version of Docker, you may just change `F2B_IPTABLES_CHAIN` to `FORWARD`. This way, all Fail2Ban rules come before any Docker rules but these rules will now apply to ALL forwarded traffic.
+
+More info : https://docs.docker.com/network/iptables/
+
+### SSHD jail example
 
 Create a new jail file called `sshd.conf` in `$(pwd)/jail.d` :
 

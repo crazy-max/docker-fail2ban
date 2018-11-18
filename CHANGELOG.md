@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.4-RC4 (2018/11/18)
+
+* Add `F2B_IPTABLES_CHAIN` var to specifies the iptables chain to which the Fail2Ban rules should be added
+* Change default action to `%(action_)s`
+* Add ipset
+
 ## 0.10.4-RC3 (2018/10/06)
 
 * Add whois (Issue #6)

@@ -8,6 +8,7 @@ F2B_MAX_RETRY=${F2B_MAX_RETRY:-"5"}
 F2B_DEST_EMAIL=${F2B_DEST_EMAIL:-"root@localhost"}
 F2B_SENDER=${F2B_SENDER:-"root@$(hostname -f)"}
 F2B_ACTION=${F2B_ACTION:-"%(action_)s"}
+F2B_IPTABLES_CHAIN=${F2B_IPTABLES_CHAIN:-"DOCKER-USER"}
 
 SSMTP_PORT=${SSMTP_PORT:-"25"}
 SSMTP_HOSTNAME=${SSMTP_HOSTNAME:-"$(hostname -f)"}
@@ -48,6 +49,7 @@ sed -i "s/logtarget =.*/logtarget = STDOUT/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/loglevel =.*/loglevel = $F2B_LOG_LEVEL/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbfile =.*/dbfile = \/data\/db\/fail2ban\.sqlite3/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbpurgeage =.*/dbpurgeage = $F2B_DB_PURGE_AGE/g" /etc/fail2ban/fail2ban.conf
+sed -i "s/chain =.*/chain = $F2B_IPTABLES_CHAIN/g" /etc/fail2ban/action.d/iptables-common.conf
 cat > /etc/fail2ban/jail.local <<EOL
 [DEFAULT]
 maxretry = ${F2B_MAX_RETRY}
