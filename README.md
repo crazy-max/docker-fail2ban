@@ -53,7 +53,10 @@ docker-compose logs -f
 You can also use the following minimal command :
 
 ```bash
-docker run -d --network host --cap-add NET_ADMIN --cap-add NET_RAW --name fail2ban \
+docker run -d --name fail2ban --restart always \
+  --network host \
+  --cap-add NET_ADMIN \
+  --cap-add NET_RAW \
   -v $(pwd)/data:/data \
   -v /var/log:/var/log:ro \
   crazymax/fail2ban:latest
