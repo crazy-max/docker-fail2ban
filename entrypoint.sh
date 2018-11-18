@@ -7,7 +7,7 @@ F2B_DB_PURGE_AGE=${F2B_DB_PURGE_AGE:-"1d"}
 F2B_MAX_RETRY=${F2B_MAX_RETRY:-"5"}
 F2B_DEST_EMAIL=${F2B_DEST_EMAIL:-"root@localhost"}
 F2B_SENDER=${F2B_SENDER:-"root@$(hostname -f)"}
-F2B_ACTION=${F2B_ACTION:-"%(action_mwl)s"}
+F2B_ACTION=${F2B_ACTION:-"%(action_)s"}
 
 SSMTP_PORT=${SSMTP_PORT:-"25"}
 SSMTP_HOSTNAME=${SSMTP_HOSTNAME:-"$(hostname -f)"}

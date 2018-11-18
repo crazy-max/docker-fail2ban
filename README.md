@@ -19,19 +19,21 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Environment variables
 
-* `TZ` : The timezone assigned to the container (default: `UTC`)
-* `F2B_LOG_LEVEL` : Log level output (default: `INFO`)
-* `F2B_DB_PURGE_AGE` : Age at which bans should be purged from the database (default: `1d`)
-* `F2B_MAX_RETRY` : Number of failures before a host get banned (default: `5`)
-* `F2B_DEST_EMAIL` : Destination email address used solely for the interpolations in configuration files (default: `root@localhost`)
-* `F2B_SENDER` : Sender email address used solely for some actions (default: `root@$(hostname -f)`)
-* `F2B_ACTION` : Default action on ban (default: `%(action_mwl)s`)
+* `TZ` : The timezone assigned to the container (default `UTC`)
+* `F2B_LOG_LEVEL` : Log level output (default `INFO`)
+* `F2B_DB_PURGE_AGE` : Age at which bans should be purged from the database (default `1d`)
+* `F2B_MAX_RETRY` : Number of failures before a host get banned (default `5`)
+* `F2B_DEST_EMAIL` : Destination email address used solely for the interpolations in configuration files (default `root@localhost`)
+* `F2B_SENDER` : Sender email address used solely for some actions (default `root@$(hostname -f)`)
+* `F2B_ACTION` : Default action on ban (default `%(action_)s`)
 * `SSMTP_HOST` : SMTP server host
-* `SSMTP_PORT` : SMTP server port (default: `25`)
-* `SSMTP_HOSTNAME` : Full hostname (default: `$(hostname -f)`)
+* `SSMTP_PORT` : SMTP server port (default `25`)
+* `SSMTP_HOSTNAME` : Full hostname (default `$(hostname -f)`)
 * `SSMTP_USER` : SMTP username
 * `SSMTP_PASSWORD` : SMTP password
-* `SSMTP_TLS` : SSL/TLS (default: `NO`)
+* `SSMTP_TLS` : SSL/TLS (default `NO`)
+
+> :warning: If you want email to be sent after a ban, you have to configure SSMTP env vars and set F2B_ACTION to `%(action_mw)s` or `%(action_mwl)s`
 
 ### Volumes
 
@@ -129,7 +131,7 @@ iptables -w -I INPUT -p tcp -m multiport --dports 22 -j f2b-sshd
 [Fail2ban commands](http://www.fail2ban.org/wiki/index.php/Commands) can be used through the container. Here is an example if you want to ban an IP manually :
 
 ```bash
-docker exec -it <CONTAINER> fail2ban-client set <JAIL> banip <IP>
+docker exec -t <CONTAINER> fail2ban-client set <JAIL> banip <IP>
 ```
 
 ### Custom actions and filters
