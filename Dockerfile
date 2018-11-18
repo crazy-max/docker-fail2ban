@@ -20,15 +20,13 @@ ARG FAIL2BAN_VERSION=0.10.4
 RUN apk --update --no-cache add \
     curl ipset iptables python3 python3-dev py-setuptools ssmtp tzdata wget whois \
   && cd /tmp \
-  && wget https://github.com/fail2ban/fail2ban/archive/${FAIL2BAN_VERSION}.zip \
+  && curl -SsOL https://github.com/fail2ban/fail2ban/archive/${FAIL2BAN_VERSION}.zip \
   && unzip ${FAIL2BAN_VERSION}.zip \
   && cd fail2ban-${FAIL2BAN_VERSION} \
   && python setup.py install \
-  && rm -rf /etc/fail2ban/jail.d \
-  && cp -f /etc/ssmtp/ssmtp.conf /etc/ssmtp/ssmtp.conf.or \
-  && rm -rf /var/cache/apk/* /tmp/*
+  && rm -rf /etc/fail2ban/jail.d /var/cache/apk/* /tmp/*
 
-ADD entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod a+x /entrypoint.sh
 

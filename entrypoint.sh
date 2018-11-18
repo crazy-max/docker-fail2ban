@@ -22,7 +22,6 @@ echo ${TZ} > /etc/timezone
 echo "Setting SSMTP configuration..."
 if [ -z "$SSMTP_HOST" ] ; then
   echo "WARNING: SSMTP_HOST must be defined if you want fail2ban to send emails"
-  cp -f /etc/ssmtp/ssmtp.conf.or /etc/ssmtp/ssmtp.conf
 else
   cat > /etc/ssmtp/ssmtp.conf <<EOL
 mailhub=${SSMTP_HOST}:${SSMTP_PORT}
