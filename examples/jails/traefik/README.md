@@ -1,3 +1,5 @@
+## Traefik
+
 If you want to block IPs that have HTTP Basic Authentication failures on [Traefik](https://traefik.io/), and ban them with iptables, read the instructions below.
 
 First you have to configure your Traefik instance to write the [access logs](https://docs.traefik.io/configuration/logs/#access-logs) into a log file on host and specifiy users for [Basic Authentication](https://docs.traefik.io/configuration/entrypoints/#basic-authentication). You can use the following compose as a quick example :
@@ -52,4 +54,6 @@ $ docker pull httpd:2.4-alpine
 $ docker run --rm httpd:2.4-alpine htpasswd -nbB <USER> <PASSWORD> >> ./htpasswd
 ```
 
-Now start the Traefik container, copy files from [filter.d](filter.d) and [jail.d](jail.d) to `./data` in their respective folders and restart your Fail2Ban container.
+## Fail2ban container
+
+Copy files from [filter.d](filter.d) and [jail.d](jail.d) to `./data` in their respective folders.
