@@ -1,6 +1,11 @@
-## SSHD and Fail2ban container
+## SSHD
 
-Copy [`sshd.conf`](jail.d/sshd.conf) jail to `$(pwd)/data/jail.d` and start the container :
+To block IPs that have SSHD authentication failures on your host, you have to :
+
+* Copy files [jail.d](jail.d) to `./data`
+* Set `F2B_IPTABLES_CHAIN` to `INPUT`
+
+For example :
 
 ```bash
 docker run -it --name fail2ban --restart always \
@@ -10,6 +15,7 @@ docker run -it --name fail2ban --restart always \
   -v $(pwd)/data:/data \
   -v /var/log:/var/log:ro \
   -e F2B_LOG_LEVEL=DEBUG \
+  -e F2B_IPTABLES_CHAIN=INPUT \
   crazymax/fail2ban:latest
 ```
 

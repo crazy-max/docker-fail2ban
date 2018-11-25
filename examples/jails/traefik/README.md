@@ -56,4 +56,5 @@ $ docker run --rm httpd:2.4-alpine htpasswd -nbB <USER> <PASSWORD> >> ./htpasswd
 
 ## Fail2ban container
 
-Copy files from [filter.d](filter.d) and [jail.d](jail.d) to `./data` in their respective folders.
+* Copy files from [filter.d](filter.d) and [jail.d](jail.d) to `./data` in their respective folders
+* `F2B_IPTABLES_CHAIN` has to be set to `DOCKER-USER`

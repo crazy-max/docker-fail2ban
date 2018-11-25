@@ -75,6 +75,12 @@ If you have an older version of Docker, you may just change `F2B_IPTABLES_CHAIN`
 
 More info : https://docs.docker.com/network/iptables/
 
+### `DOCKER-USER` and `INPUT` chains
+
+If your Fail2Ban container is attached to `DOCKER-USER` chain instead of `INPUT`, the rules will be applied **only to containers**. This means that any packets coming into the `INPUT` chain will bypass these rules that now reside under the `FORWARD` chain.
+
+This implies that [sshd](examples/jails/sshd) jail for example will not work as intended. You can create another Fail2Ban container. Take a look at [this example](examples/compose-multi).
+
 ### Use fail2ban-client
 
 [Fail2ban commands](http://www.fail2ban.org/wiki/index.php/Commands) can be used through the container. Here is an example if you want to ban an IP manually :

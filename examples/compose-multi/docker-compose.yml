@@ -1,0 +1,34 @@
+version: "3.2"
+
+services:
+  fail2ban-input:
+    image: crazymax/fail2ban:latest
+    container_name: fail2ban-input
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - "./data-input:/data"
+      - "/var/log:/var/log:ro"
+    env_file:
+      - "./fail2ban.env"
+    environment:
+      - "F2B_IPTABLES_CHAIN=INPUT"
+    restart: always
+
+  fail2ban-docker:
+    image: crazymax/fail2ban:latest
+    container_name: fail2ban-docker
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - "./data-docker:/data"
+      - "/var/log:/var/log:ro"
+    env_file:
+      - "./fail2ban.env"
+    environment:
+      - "F2B_IPTABLES_CHAIN=DOCKER-USER"
+    restart: always
