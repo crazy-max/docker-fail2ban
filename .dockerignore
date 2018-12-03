@@ -1,14 +1,14 @@
-.dev
-.idea
-*.iml
+/.dev
+/.idea
+/*.iml
 
-.git
-.res
-examples
-.editorconfig
-.gitignore
-.travis.yml
-build.sh
-CHANGELOG.md
-LICENSE
-README.md
+/.git
+/.res
+/examples
+/.editorconfig
+/.gitignore
+/.travis.yml
+/build.sh
+/CHANGELOG.md
+/LICENSE
+/README.md
