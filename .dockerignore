@@ -4,10 +4,11 @@
 
 .git
 .res
+examples
 .editorconfig
 .gitignore
 .travis.yml
+build.sh
 CHANGELOG.md
-docker-compose.yml
 LICENSE
 README.md

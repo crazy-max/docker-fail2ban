@@ -7,7 +7,7 @@ ARG VERSION
 LABEL maintainer="CrazyMax" \
   org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.name="fail2ban" \
-  org.label-schema.description="Fail2ban image based on Alpine Linux" \
+  org.label-schema.description="Fail2ban" \
   org.label-schema.version=$VERSION \
   org.label-schema.url="https://github.com/crazy-max/docker-fail2ban" \
   org.label-schema.vcs-ref=$VCS_REF \
