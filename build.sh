@@ -74,15 +74,15 @@ while read LOGLINE; do
   fi
   if [[ $SECONDS -gt ${TIMEOUT} ]]; then
     >&2 echo "ERROR: Failed to run ${PROJECT} container"
-    docker rm -f $(docker ps -a -q) || true
+    docker rm -f ${PROJECT} > /dev/null 2>&1 || true
     exit 1
   fi
 done < <(docker logs -f ${PROJECT})
+docker rm -f ${PROJECT} > /dev/null 2>&1 || true
 echo
 
 if [ "${VERSION}" == "local" -o "${TRAVIS_PULL_REQUEST}" == "true" ]; then
   echo "INFO: This is a PR or a local build, skipping push..."
-  docker rm -f $(docker ps -a -q) || true
   exit 0
 fi
 if [[ ! -z ${DOCKER_PASSWORD} ]]; then
