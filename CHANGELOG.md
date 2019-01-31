@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4-RC1 (2019/01/31)
+
+* Alpine Linux 3.9
+
 ## 0.10.4-RC4 (2018/11/18)
 
 * Add `F2B_IPTABLES_CHAIN` var to specifies the iptables chain to which the Fail2Ban rules should be added
