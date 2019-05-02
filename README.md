@@ -27,6 +27,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 * `F2B_SENDER` : Sender email address used solely for some actions (default `root@$(hostname -f)`)
 * `F2B_ACTION` : Default action on ban (default `%(action_)s`)
 * `F2B_IPTABLES_CHAIN` : Specifies the iptables chain to which the Fail2Ban rules should be added (default `DOCKER-USER`)
+* `F2B_LOGTARGET` : Set the log target. This could be a file, SYSLOG, STDERR or STDOUT (default `STDOUT`)
 * `SSMTP_HOST` : SMTP server host
 * `SSMTP_PORT` : SMTP server port (default `25`)
 * `SSMTP_HOSTNAME` : Full hostname (default `$(hostname -f)`)

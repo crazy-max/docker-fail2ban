@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4-RC7 (2019/05/03)
+
+* Add `F2B_LOG_TARGET` var (Issue #22)
+
 ## 0.10.4-RC6 (2019/04/24)
 
 * Add `ip6tables`
@@ -10,7 +14,7 @@
 
 ## 0.10.4-RC4 (2018/11/18)
 
-* Add `F2B_IPTABLES_CHAIN` var to specifies the iptables chain to which the Fail2Ban rules should be added
+* Add `F2B_IPTABLES_CHAIN` var to specify the iptables chain to which the Fail2Ban rules should be added
 * Change default action to `%(action_)s`
 * Add ipset
 
