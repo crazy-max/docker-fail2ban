@@ -20,6 +20,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 ### Environment variables
 
 * `TZ` : The timezone assigned to the container (default `UTC`)
+* `F2B_LOG_TARGET` : Set the log target. This could be a file, SYSLOG, STDERR or STDOUT (default `STDOUT`)
 * `F2B_LOG_LEVEL` : Log level output (default `INFO`)
 * `F2B_DB_PURGE_AGE` : Age at which bans should be purged from the database (default `1d`)
 * `F2B_MAX_RETRY` : Number of failures before a host get banned (default `5`)
@@ -27,7 +28,6 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 * `F2B_SENDER` : Sender email address used solely for some actions (default `root@$(hostname -f)`)
 * `F2B_ACTION` : Default action on ban (default `%(action_)s`)
 * `F2B_IPTABLES_CHAIN` : Specifies the iptables chain to which the Fail2Ban rules should be added (default `DOCKER-USER`)
-* `F2B_LOGTARGET` : Set the log target. This could be a file, SYSLOG, STDERR or STDOUT (default `STDOUT`)
 * `SSMTP_HOST` : SMTP server host
 * `SSMTP_PORT` : SMTP server port (default `25`)
 * `SSMTP_HOSTNAME` : Full hostname (default `$(hostname -f)`)
