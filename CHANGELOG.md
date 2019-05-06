@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4-RC8 (2019/05/06)
+
+* Add `kmod` (Issue #23)
+
 ## 0.10.4-RC7 (2019/05/03)
 
 * Add `F2B_LOG_TARGET` var (Issue #22)
