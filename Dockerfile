@@ -22,6 +22,7 @@ RUN apk --update --no-cache add \
     ipset \
     iptables \
     ip6tables \
+    kmod \
     python3 \
     python3-dev \
     py-setuptools \
