@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4-RC9 (2019/06/23)
+
+* Alpine Linux 3.10
+
 ## 0.10.4-RC8 (2019/05/06)
 
 * Add `kmod` (Issue #23)
