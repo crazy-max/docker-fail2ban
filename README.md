@@ -22,27 +22,28 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Environment variables
 
-* `TZ` : The timezone assigned to the container (default `UTC`)
-* `F2B_LOG_TARGET` : Set the log target. This could be a file, SYSLOG, STDERR or STDOUT (default `STDOUT`)
-* `F2B_LOG_LEVEL` : Log level output (default `INFO`)
-* `F2B_DB_PURGE_AGE` : Age at which bans should be purged from the database (default `1d`)
-* `F2B_MAX_RETRY` : Number of failures before a host get banned (default `5`)
-* `F2B_DEST_EMAIL` : Destination email address used solely for the interpolations in configuration files (default `root@localhost`)
-* `F2B_SENDER` : Sender email address used solely for some actions (default `root@$(hostname -f)`)
-* `F2B_ACTION` : Default action on ban (default `%(action_)s`)
-* `F2B_IPTABLES_CHAIN` : Specifies the iptables chain to which the Fail2Ban rules should be added (default `DOCKER-USER`)
-* `SSMTP_HOST` : SMTP server host
-* `SSMTP_PORT` : SMTP server port (default `25`)
-* `SSMTP_HOSTNAME` : Full hostname (default `$(hostname -f)`)
-* `SSMTP_USER` : SMTP username
-* `SSMTP_PASSWORD` : SMTP password
-* `SSMTP_TLS` : SSL/TLS (default `NO`)
+* `TZ`: The timezone assigned to the container (default `UTC`)
+* `F2B_LOG_TARGET`: Set the log target. This could be a file, SYSLOG, STDERR or STDOUT (default `STDOUT`)
+* `F2B_LOG_LEVEL`: Log level output (default `INFO`)
+* `F2B_DB_PURGE_AGE`: Age at which bans should be purged from the database (default `1d`)
+* `F2B_BACKEND`: Specifies the backend used to get files modification (default `auto`)
+* `F2B_MAX_RETRY`: Number of failures before a host get banned (default `5`)
+* `F2B_DEST_EMAIL`: Destination email address used solely for the interpolations in configuration files (default `root@localhost`)
+* `F2B_SENDER`: Sender email address used solely for some actions (default `root@$(hostname -f)`)
+* `F2B_ACTION`: Default action on ban (default `%(action_)s`)
+* `F2B_IPTABLES_CHAIN`: Specifies the iptables chain to which the Fail2Ban rules should be added (default `DOCKER-USER`)
+* `SSMTP_HOST`: SMTP server host
+* `SSMTP_PORT`: SMTP server port (default `25`)
+* `SSMTP_HOSTNAME`: Full hostname (default `$(hostname -f)`)
+* `SSMTP_USER`: SMTP username
+* `SSMTP_PASSWORD`: SMTP password
+* `SSMTP_TLS`: SSL/TLS (default `NO`)
 
 > :warning: If you want email to be sent after a ban, you have to configure SSMTP env vars and set F2B_ACTION to `%(action_mw)s` or `%(action_mwl)s`
 
 ### Volumes
 
-* `/data` : Contains customs jails, actions and filters and Fail2ban persistent database
+* `/data`: Contains customs jails, actions and filters and Fail2ban persistent database
 
 ## Use this image
 

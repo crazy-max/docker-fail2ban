@@ -5,6 +5,7 @@ TZ=${TZ:-UTC}
 F2B_LOG_TARGET=${F2B_LOG_TARGET:-STDOUT}
 F2B_LOG_LEVEL=${F2B_LOG_LEVEL:-INFO}
 F2B_DB_PURGE_AGE=${F2B_DB_PURGE_AGE:-1d}
+F2B_BACKEND=${F2B_BACKEND:-auto}
 F2B_MAX_RETRY=${F2B_MAX_RETRY:-5}
 F2B_DEST_EMAIL=${F2B_DEST_EMAIL:-root@localhost}
 F2B_SENDER=${F2B_SENDER:-root@$(hostname -f)}
@@ -54,6 +55,7 @@ sed -i "s/chain =.*/chain = $F2B_IPTABLES_CHAIN/g" /etc/fail2ban/action.d/iptabl
 cat > /etc/fail2ban/jail.local <<EOL
 [DEFAULT]
 maxretry = ${F2B_MAX_RETRY}
+backend = ${F2B_BACKEND}
 destemail = ${F2B_DEST_EMAIL}
 sender = ${F2B_SENDER}
 action = ${F2B_ACTION}
