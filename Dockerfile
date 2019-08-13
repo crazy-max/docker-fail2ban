@@ -30,6 +30,8 @@ RUN apk --update --no-cache add \
     tzdata \
     wget \
     whois \
+  && pip3 install --upgrade pip \
+  && pip3 install dnspython3 pyinotify \
   && cd /tmp \
   && curl -SsOL https://github.com/fail2ban/fail2ban/archive/${FAIL2BAN_VERSION}.zip \
   && unzip ${FAIL2BAN_VERSION}.zip \
