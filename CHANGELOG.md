@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.4-RC10 (2019/08/13)
+
+* Add option `F2B_BACKEND` to change default backend
+* Add dnspython3 and pyinotify
+* Update to Python 3
+
 ## 0.10.4-RC9 (2019/06/23)
 
 * Alpine Linux 3.10
