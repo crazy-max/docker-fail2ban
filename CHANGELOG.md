@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4-RC11 (2019/09/16)
+
+* Only populate AuthUser/Pass in ssmtp.conf if defined in ENV (PR #28)
+
 ## 0.10.4-RC10 (2019/08/13)
 
 * Add option `F2B_BACKEND` to change default backend
