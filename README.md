@@ -21,7 +21,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Multi-platform image
 
-Following multi-platform images are available:
+Following platforms for this image are available:
 
 ```
 $ docker run --rm mplatform/mquery crazymax/fail2ban:latest
