@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.4-RC12 (2019/10/03)
+
+* Multi-platform Docker image
+* Switch to GitHub Actions
+* :warning: Stop publishing Docker image on Quay
+* Set timezone through tzdata
+
 ## 0.10.4-RC11 (2019/09/16)
 
 * Only populate AuthUser/Pass in ssmtp.conf if defined in ENV (PR #28)
