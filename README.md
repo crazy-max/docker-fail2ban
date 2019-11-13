@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/crazy-max/docker-fail2ban" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-fail2ban/master/.res/docker-fail2ban.jpg"></a></p>
+<p align="center"><a href="https://github.com/crazy-max/docker-fail2ban" target="_blank"><img height="128" src="https://raw.githubusercontent.com/crazy-max/docker-fail2ban/master/.res/docker-fail2ban.jpg"></a></p>
 
 <p align="center">
   <a href="https://hub.docker.com/r/crazymax/fail2ban/tags?page=1&ordering=last_updated"><img src="https://img.shields.io/github/v/tag/crazy-max/docker-fail2ban?label=version&style=flat-square" alt="Latest Version"></a>
@@ -6,7 +6,7 @@
   <a href="https://hub.docker.com/r/crazymax/fail2ban/"><img src="https://img.shields.io/docker/stars/crazymax/fail2ban.svg?style=flat-square" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/fail2ban/"><img src="https://img.shields.io/docker/pulls/crazymax/fail2ban.svg?style=flat-square" alt="Docker Pulls"></a>
   <a href="https://www.codacy.com/app/crazy-max/docker-fail2ban"><img src="https://img.shields.io/codacy/grade/10a198e9cd7948a6a2d71d9ca10548d1.svg?style=flat-square" alt="Code Quality"></a>
-  <br /><a href="https://www.patreon.com/crazymax"><img src="https://img.shields.io/badge/donate-patreon-f96854.svg?logo=patreon&style=flat-square" alt="Support me on Patreon"></a>
+  <br /><a href="https://github.com/sponsors/crazy-max"><img src="https://img.shields.io/badge/sponsor-crazy--max-181717.svg?logo=github&style=flat-square" alt="Become a sponsor"></a>
   <a href="https://www.paypal.me/crazyws"><img src="https://img.shields.io/badge/donate-paypal-00457c.svg?logo=paypal&style=flat-square" alt="Donate Paypal"></a>
 </p>
 
@@ -136,12 +136,9 @@ Jail examples can be found in [examples/jails](examples/jails) to work with this
 
 ## How can I help ?
 
-All kinds of contributions are welcome :raised_hands:!<br />
-The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon:<br />
-But we're not gonna lie to each other, I'd rather you buy me a beer or two :beers:!
+All kinds of contributions are welcome :raised_hands:! The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon: You can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) :clap: or by making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely! :rocket:
 
-[![Support me on Patreon](.res/patreon.png)](https://www.patreon.com/crazymax) 
-[![Paypal Donate](.res/paypal.png)](https://www.paypal.me/crazyws)
+Thanks again for your support, it is much appreciated! :pray:
 
 ## License
 
