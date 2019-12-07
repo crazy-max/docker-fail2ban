@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4-RC13 (2019/12/07)
+
+* Fix timezone
+
 ## 0.10.4-RC12 (2019/10/03)
 
 * Multi-platform Docker image

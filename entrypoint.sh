@@ -1,5 +1,7 @@
 #!/bin/sh
 
+TZ=${TZ:-UTC}
+
 F2B_LOG_TARGET=${F2B_LOG_TARGET:-STDOUT}
 F2B_LOG_LEVEL=${F2B_LOG_LEVEL:-INFO}
 F2B_DB_PURGE_AGE=${F2B_DB_PURGE_AGE:-1d}
@@ -13,6 +15,11 @@ F2B_IPTABLES_CHAIN=${F2B_IPTABLES_CHAIN:-DOCKER-USER}
 SSMTP_PORT=${SSMTP_PORT:-25}
 SSMTP_HOSTNAME=${SSMTP_HOSTNAME:-$(hostname -f)}
 SSMTP_TLS=${SSMTP_TLS:-NO}
+
+# Timezone
+echo "Setting timezone to ${TZ}..."
+ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime
+echo ${TZ} > /etc/timezone
 
 # SSMTP
 echo "Setting SSMTP configuration..."
