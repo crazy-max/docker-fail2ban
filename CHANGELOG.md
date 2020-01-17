@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.5-RC1 (2020/01/17)
+
+* Fail2ban 0.10.5
+* Add nftables support
+* Add `F2B_MAX_MATCHES` env var
+* Alpine Linux 3.11
+
 ## 0.10.4-RC13 (2019/12/07)
 
 * Fix timezone
