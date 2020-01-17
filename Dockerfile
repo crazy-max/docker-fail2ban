@@ -20,7 +20,7 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.vendor="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
-ENV FAIL2BAN_VERSION="0.10.4" \
+ENV FAIL2BAN_VERSION="0.10.5" \
   TZ="UTC"
 
 RUN apk --update --no-cache add \
@@ -29,6 +29,7 @@ RUN apk --update --no-cache add \
     iptables \
     ip6tables \
     kmod \
+    nftables \
     python3 \
     python3-dev \
     py3-setuptools \
