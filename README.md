@@ -45,6 +45,7 @@ Image: crazymax/fail2ban:latest
 * `F2B_DB_PURGE_AGE`: Age at which bans should be purged from the database (default `1d`)
 * `F2B_BACKEND`: Specifies the backend used to get files modification (default `auto`)
 * `F2B_MAX_RETRY`: Number of failures before a host get banned (default `5`)
+* `F2B_MAX_MATCHES`: Number of matches stored in ticket (default `%(maxretry)s`)
 * `F2B_DEST_EMAIL`: Destination email address used solely for the interpolations in configuration files (default `root@localhost`)
 * `F2B_SENDER`: Sender email address used solely for some actions (default `root@$(hostname -f)`)
 * `F2B_ACTION`: Default action on ban (default `%(action_)s`)
