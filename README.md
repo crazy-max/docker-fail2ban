@@ -118,7 +118,7 @@ sender = root@$(hostname -f)
 action = %(action_mwl)s
 ```
 
-> :warning: If you want email to be sent after a ban, you have to configure SSMTP env vars`
+> :warning: If you want email to be sent after a ban, you have to configure SSMTP env vars
 
 FYI, here is the order *jail* configuration would be loaded:
 
