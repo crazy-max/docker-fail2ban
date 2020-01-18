@@ -20,7 +20,7 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.vendor="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
-ENV FAIL2BAN_VERSION="0.10.5" \
+ENV FAIL2BAN_VERSION="0.11.1" \
   TZ="UTC"
 
 RUN apk --update --no-cache add \
