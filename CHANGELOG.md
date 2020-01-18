@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.1-RC1 (2020/01/18)
+
+* Fail2ban 0.11.1
+
+> :warning: **UPGRADE NOTES**
+> `F2B_BACKEND`, `F2B_MAX_RETRY`, `F2B_MAX_MATCHES`, `F2B_DEST_EMAIL`, `F2B_SENDER`, `F2B_ACTION` env vars have been removed.
+> You must now use them through the global jail configuration. See [README](README.md#global-jail-configuration) for more info.
+
 ## 0.10.5-RC1 (2020/01/17)
 
 * Fail2ban 0.10.5
