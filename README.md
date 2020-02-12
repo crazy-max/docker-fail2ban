@@ -149,4 +149,4 @@ Thanks again for your support, it is much appreciated! :pray:
 
 ## License
 
-MIT. See `LICENSE` for more details.<br />
+MIT. See `LICENSE` for more details.
