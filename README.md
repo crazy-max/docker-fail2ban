@@ -50,6 +50,7 @@ Image: crazymax/fail2ban:latest
 * `SSMTP_USER`: SMTP username
 * `SSMTP_PASSWORD`: SMTP password
 * `SSMTP_TLS`: SSL/TLS (default `NO`)
+* `SSMTP_STARTTLS`: STARTTLS (default `NO`)
 
 ### Volumes
 

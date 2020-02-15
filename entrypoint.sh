@@ -10,6 +10,7 @@ F2B_IPTABLES_CHAIN=${F2B_IPTABLES_CHAIN:-DOCKER-USER}
 SSMTP_PORT=${SSMTP_PORT:-25}
 SSMTP_HOSTNAME=${SSMTP_HOSTNAME:-$(hostname -f)}
 SSMTP_TLS=${SSMTP_TLS:-NO}
+SSMTP_STARTTLS=${SSMTP_STARTTLS:-NO}
 
 # Timezone
 echo "Setting timezone to ${TZ}..."
@@ -26,7 +27,7 @@ mailhub=${SSMTP_HOST}:${SSMTP_PORT}
 hostname=${SSMTP_HOSTNAME}
 FromLineOverride=YES
 UseTLS=${SSMTP_TLS}
-UseSTARTTLS=${SSMTP_TLS}
+UseSTARTTLS=${SSMTP_STARTTLS}
 EOL
   # Authentication to SMTP server is optional.
   if [ -n "$SSMTP_USER" ] ; then
