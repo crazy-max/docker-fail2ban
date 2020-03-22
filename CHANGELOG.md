@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.1-RC2 (2020/03/22)
+
+* SSMTP: Add support for non-STARTTLS connections (#38)
+
 ## 0.11.1-RC1 (2020/01/18)
 
 * Fail2ban 0.11.1
