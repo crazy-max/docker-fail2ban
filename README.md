@@ -49,8 +49,8 @@ Image: crazymax/fail2ban:latest
 * `SSMTP_HOSTNAME`: Full hostname (default `$(hostname -f)`)
 * `SSMTP_USER`: SMTP username
 * `SSMTP_PASSWORD`: SMTP password
-* `SSMTP_TLS`: SSL/TLS (default `NO`)
-* `SSMTP_STARTTLS`: STARTTLS (default `NO`)
+* `SSMTP_TLS`: Use TLS to talk to the SMTP server (default `NO`)
+* `SSMTP_STARTTLS`: Specifies whether ssmtp does a EHLO/STARTTLS before starting SSL negotiation (default `NO`)
 
 ### Volumes
 
