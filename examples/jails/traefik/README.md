@@ -2,7 +2,7 @@
 
 If you want to block IPs that have HTTP Basic Authentication failures on [Traefik](https://traefik.io/), and ban them with iptables, read the instructions below.
 
-First you have to configure your Traefik instance to write the [access logs](https://docs.traefik.io/configuration/logs/#access-logs) into a log file on host and specifiy users for [Basic Authentication](https://docs.traefik.io/configuration/entrypoints/#basic-authentication). You can use the following compose as a quick example :
+First you have to configure your Traefik instance to write the [access logs](https://docs.traefik.io/v1.7/configuration/logs/#access-logs) into a log file on host and specifiy users for [Basic Authentication](https://docs.traefik.io/v1.7/configuration/entrypoints/#basic-authentication). You can use the following compose as a quick example:
 
 ```yml
 version: "3.2"
@@ -47,7 +47,7 @@ traefik:
 
 Traefik will write logs into `/var/log/access.log` for HTTP status code `400-499` and bind the folder to `/var/log/traefik` on the host.
 
-It will also create a [Basic Authentication](https://docs.traefik.io/configuration/entrypoints/#basic-authentication) mechanism through `/htpasswd` file. You can populate this file with the following command :
+It will also create a [Basic Authentication](https://docs.traefik.io/configuration/entrypoints/#basic-authentication) mechanism through `/htpasswd` file. You can populate this file with the following command:
 
 ```
 $ docker pull httpd:2.4-alpine
