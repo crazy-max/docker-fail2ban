@@ -17,6 +17,26 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
 
+___
+
+* [Docker](#docker)
+  * [Multi-platform image](#multi-platform-image)
+  * [Environment variables](#environment-variables)
+  * [Volumes](#volumes)
+* [Use this image](#use-this-image)
+  * [Docker Compose](#docker-compose)
+  * [Command line](#command-line)
+* [Notes](#notes)
+  * [`DOCKER-USER` chain](#docker-user-chain)
+  * [`DOCKER-USER` and `INPUT` chains](#docker-user-and-input-chains)
+  * [Fix `stderr: 'iptables: No chain/target/match by that name.'`](#fix-stderr-iptables-no-chaintargetmatch-by-that-name)
+  * [Use fail2ban-client](#use-fail2ban-client)
+  * [Global jail configuration](#global-jail-configuration)
+  * [Custom jails, actions and filters](#custom-jails-actions-and-filters)
+  * [Jail examples](#jail-examples)
+* [How can I help?](#how-can-i-help)
+* [License](#license)
+
 ## Docker
 
 ### Multi-platform image
@@ -95,7 +115,21 @@ More info : https://docs.docker.com/network/iptables/
 
 If your Fail2Ban container is attached to `DOCKER-USER` chain instead of `INPUT`, the rules will be applied **only to containers**. This means that any packets coming into the `INPUT` chain will bypass these rules that now reside under the `FORWARD` chain.
 
-This implies that [sshd](examples/jails/sshd) jail for example will not work as intended. You can create another Fail2Ban container. Take a look at [this example](examples/compose-multi).
+This implies that [sshd](examples/jails/sshd) jail for example will [not work as intended](https://github.com/crazy-max/docker-fail2ban/issues/36). You can create another Fail2Ban container. Take a look at [this example](examples/compose-multi).
+
+### Fix `stderr: 'iptables: No chain/target/match by that name.'`
+
+If your host is on a Debian Buster based distro, it uses the [`nftables`](https://wiki.debian.org/nftables) framework by default.
+As this image still uses iptables to preserve backwards compatibility, you need to switch back and forth between iptables-nft and iptables-legacy by means of update-alternatives (same applies to arptables and ebtables):
+
+```
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+update-alternatives --set arptables /usr/sbin/arptables-legacy
+update-alternatives --set ebtables /usr/sbin/ebtables-legacy
+```
+
+And reboot to propagate changes.
 
 ### Use fail2ban-client
 
@@ -103,7 +137,7 @@ This implies that [sshd](examples/jails/sshd) jail for example will not work as 
 
 ```
 docker exec -t <CONTAINER> fail2ban-client set <JAIL> banip <IP>
-```
+``` 
 
 ### Global jail configuration
 
@@ -142,7 +176,7 @@ Custom jails, actions and filters can be added respectively in `/data/jail.d`, `
 
 Jail examples can be found in [examples/jails](examples/jails) to work with this image.
 
-## How can I help ?
+## How can I help?
 
 All kinds of contributions are welcome :raised_hands:! The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon: You can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) :clap: or by making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely! :rocket:
 
