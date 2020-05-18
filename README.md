@@ -23,9 +23,10 @@ ___
   * [Multi-platform image](#multi-platform-image)
   * [Environment variables](#environment-variables)
   * [Volumes](#volumes)
-* [Use this image](#use-this-image)
+* [Usage](#usage)
   * [Docker Compose](#docker-compose)
   * [Command line](#command-line)
+* [Upgrade](#upgrade)
 * [Notes](#notes)
   * [`DOCKER-USER` chain](#docker-user-chain)
   * [`DOCKER-USER` and `INPUT` chains](#docker-user-and-input-chains)
@@ -76,7 +77,7 @@ Image: crazymax/fail2ban:latest
 
 * `/data`: Contains customs jails, actions and filters and Fail2ban persistent database
 
-## Use this image
+## Usage
 
 ### Docker Compose
 
@@ -99,6 +100,15 @@ docker run -d --name fail2ban --restart always \
   -v $(pwd)/data:/data \
   -v /var/log:/var/log:ro \
   crazymax/fail2ban:latest
+```
+
+## Upgrade
+
+Recreate the container whenever I push an update:
+
+```bash
+docker-compose pull
+docker-compose up -d
 ```
 
 ## Notes
