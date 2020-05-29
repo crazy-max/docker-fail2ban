@@ -30,7 +30,7 @@ ___
 * [Notes](#notes)
   * [`DOCKER-USER` chain](#docker-user-chain)
   * [`DOCKER-USER` and `INPUT` chains](#docker-user-and-input-chains)
-  * [Fix `stderr: 'iptables: No chain/target/match by that name.'`](#fix-stderr-iptables-no-chaintargetmatch-by-that-name)
+  * [Use iptables tooling without nftables backend](#use-iptables-tooling-without-nftables-backend)
   * [Use fail2ban-client](#use-fail2ban-client)
   * [Global jail configuration](#global-jail-configuration)
   * [Custom jails, actions and filters](#custom-jails-actions-and-filters)
@@ -81,7 +81,9 @@ Image: crazymax/fail2ban:latest
 
 ### Docker Compose
 
-Docker compose is the recommended way to run this image. Copy the content of folder [examples/compose](examples/compose) in `/var/fail2ban/` on your host for example. Edit the compose and env files with your preferences and run the following commands :
+Docker compose is the recommended way to run this image. Copy the content of folder
+[examples/compose](examples/compose) in `/var/fail2ban/` on your host for example. Edit the compose and env files
+with your preferences and run the following commands:
 
 ```
 docker-compose up -d
@@ -115,22 +117,40 @@ docker-compose up -d
 
 ### `DOCKER-USER` chain
 
-In Docker 17.06 and higher through [docker/libnetwork#1675](https://github.com/docker/libnetwork/pull/1675), you can add rules to a new table called `DOCKER-USER`, and these rules will be loaded before any rules Docker creates automatically. This is useful to make `iptables` rules created by Fail2Ban persistent.
+In Docker 17.06 and higher through [docker/libnetwork#1675](https://github.com/docker/libnetwork/pull/1675),
+you can add rules to a new table called `DOCKER-USER`, and these rules will be loaded before any rules Docker creates
+automatically. This is useful to make `iptables` rules created by Fail2Ban persistent.
 
-If you have an older version of Docker, you may just change `F2B_IPTABLES_CHAIN` to `FORWARD`. This way, all Fail2Ban rules come before any Docker rules but these rules will now apply to ALL forwarded traffic.
+If you have an older version of Docker, you may just change `F2B_IPTABLES_CHAIN` to `FORWARD`.
+This way, all Fail2Ban rules come before any Docker rules but these rules will now apply to ALL forwarded traffic.
 
 More info : https://docs.docker.com/network/iptables/
 
 ### `DOCKER-USER` and `INPUT` chains
 
-If your Fail2Ban container is attached to `DOCKER-USER` chain instead of `INPUT`, the rules will be applied **only to containers**. This means that any packets coming into the `INPUT` chain will bypass these rules that now reside under the `FORWARD` chain.
+If your Fail2Ban container is attached to `DOCKER-USER` chain instead of `INPUT`, the rules will be applied
+**only to containers**. This means that any packets coming into the `INPUT` chain will bypass these rules that now
+reside under the `FORWARD` chain.
 
-This implies that [sshd](examples/jails/sshd) jail for example will [not work as intended](https://github.com/crazy-max/docker-fail2ban/issues/36). You can create another Fail2Ban container. Take a look at [this example](examples/compose-multi).
+This implies that [sshd](examples/jails/sshd) jail for example will
+[not work as intended](https://github.com/crazy-max/docker-fail2ban/issues/36). You can create another Fail2Ban
+container. Take a look at [this example](examples/compose-multi).
 
-### Fix `stderr: 'iptables: No chain/target/match by that name.'`
+### Use iptables tooling without nftables backend
 
-If your host is on a Debian Buster based distro, it uses the [`nftables`](https://wiki.debian.org/nftables) framework by default.
-As this image still uses iptables to preserve backwards compatibility, you need to switch back and forth between iptables-nft and iptables-legacy by means of update-alternatives (same applies to arptables and ebtables):
+As you may know, [nftables](https://wiki.nftables.org) is available as a modern replacement for the kernel's iptables
+subsystem on Linux. 
+
+This image still uses `iptables` to preserve backwards compatibility but
+[an issue is opened](https://github.com/crazy-max/docker-fail2ban/issues/29) about its implementation.
+
+If your system's `iptables` tooling uses the nftables backend, this will throw the error
+`stderr: 'iptables: No chain/target/match by that name.'`. You need to switch the `iptables` tooling to 'legacy' mode
+to avoid these problems. This is the case on at least Debian 10 (Buster), Ubuntu 19.04, Fedora 29 and newer releases
+of these distributions by default. RHEL 8 does not support switching to legacy mode, and is therefore currently
+incompatible with this image.
+
+On Ubuntu or Debian:
 
 ```
 update-alternatives --set iptables /usr/sbin/iptables-legacy
@@ -139,7 +159,13 @@ update-alternatives --set arptables /usr/sbin/arptables-legacy
 update-alternatives --set ebtables /usr/sbin/ebtables-legacy
 ```
 
-And reboot to propagate changes.
+On Fedora:
+
+```
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+```
+
+Then reboot to apply changes.
 
 ### Use fail2ban-client
 
