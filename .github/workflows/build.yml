@@ -30,7 +30,7 @@ jobs:
           echo ::set-output name=docker_image::crazymax/fail2ban
       -
         name: Set up Docker Buildx
-        uses: crazy-max/ghaction-docker-buildx@v1
+        uses: crazy-max/ghaction-docker-buildx@v2.0.1
       -
         name: Checkout
         uses: actions/checkout@v2
