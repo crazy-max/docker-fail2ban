@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.11
+FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.12
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -30,12 +30,15 @@ RUN apk --update --no-cache add \
     kmod \
     nftables \
     python3 \
-    python3-dev \
     py3-setuptools \
     ssmtp \
     tzdata \
     wget \
     whois \
+  && apk --update --no-cache add -t build-dependencies \
+    build-base \
+    py3-pip \
+    python3-dev \
   && pip3 install --upgrade pip \
   && pip3 install dnspython3 pyinotify \
   && cd /tmp \
@@ -44,6 +47,7 @@ RUN apk --update --no-cache add \
   && cd fail2ban-${FAIL2BAN_VERSION} \
   && 2to3 -w --no-diffs bin/* fail2ban \
   && python3 setup.py install \
+  && apk del build-dependencies \
   && rm -rf /etc/fail2ban/jail.d /var/cache/apk/* /tmp/*
 
 COPY entrypoint.sh /entrypoint.sh
