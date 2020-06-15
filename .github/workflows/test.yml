@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - '**'
-    tags:
-      - '*'
+      - '!dependabot/**'
     paths-ignore:
       - '**.md'
   pull_request:

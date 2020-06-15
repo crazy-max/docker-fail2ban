@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - '**'
+      - '!dependabot/**'
     tags:
       - '*'
     paths-ignore:
