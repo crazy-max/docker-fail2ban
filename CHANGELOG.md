@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.11.1-RC3 (2020/07/30)
+
+* Bringing the `INPUT` and `DOCKER-USER` chains together (#17 #46)
+* Remove `F2B_IPTABLES_CHAIN` env var
+* Update jails examples
+* Alpine Linux 3.12
+
+> :warning: **UPGRADE NOTES**
+> `F2B_IPTABLES_CHAIN` env var have been removed.
+> You must now define the targeted chain in your jail definition.
+> See [README](README.md#docker-user-and-input-chains) for more info.
+
 ## 0.11.1-RC2 (2020/03/22)
 
 * SSMTP: Add support for non-STARTTLS connections (#38)
@@ -10,7 +22,8 @@
 
 > :warning: **UPGRADE NOTES**
 > `F2B_BACKEND`, `F2B_MAX_RETRY`, `F2B_MAX_MATCHES`, `F2B_DEST_EMAIL`, `F2B_SENDER`, `F2B_ACTION` env vars have been removed.
-> You must now use them through the global jail configuration. See [README](README.md#global-jail-configuration) for more info.
+> You must now use them through the global jail configuration.
+> See [README](README.md#global-jail-configuration) for more info.
 
 ## 0.10.5-RC1 (2020/01/17)
 
