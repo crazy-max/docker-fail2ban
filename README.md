@@ -19,7 +19,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 ___
 
 * [Docker](#docker)
-  * [Multi-platform image](#multi-platform-image)
+  * [Image](#image)
   * [Environment variables](#environment-variables)
   * [Volumes](#volumes)
 * [Usage](#usage)
@@ -39,7 +39,12 @@ ___
 
 ## Docker
 
-### Multi-platform image
+### Image
+
+| Registry                                                                                         | Image                           |
+|--------------------------------------------------------------------------------------------------|---------------------------------|
+| [Docker Hub](https://hub.docker.com/r/crazymax/fail2ban/)                                            | `crazymax/fail2ban`                 |
+| [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/fail2ban)  | `ghcr.io/crazy-max/fail2ban`        |
 
 Following platforms for this image are available:
 
