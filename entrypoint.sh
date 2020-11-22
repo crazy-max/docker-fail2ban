@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 TZ=${TZ:-UTC}
 
@@ -11,12 +11,36 @@ SSMTP_HOSTNAME=${SSMTP_HOSTNAME:-$(hostname -f)}
 SSMTP_TLS=${SSMTP_TLS:-NO}
 SSMTP_STARTTLS=${SSMTP_STARTTLS:-NO}
 
+# From https://github.com/docker-library/mariadb/blob/master/docker-entrypoint.sh#L21-L41
+# usage: file_env VAR [DEFAULT]
+#    ie: file_env 'XYZ_DB_PASSWORD' 'example'
+# (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
+#  "$XYZ_DB_PASSWORD" from a file, especially for Docker's secrets feature)
+file_env() {
+  local var="$1"
+  local fileVar="${var}_FILE"
+  local def="${2:-}"
+  if [ "${!var:-}" ] && [ "${!fileVar:-}" ]; then
+    echo >&2 "error: both $var and $fileVar are set (but are exclusive)"
+    exit 1
+  fi
+  local val="$def"
+  if [ "${!var:-}" ]; then
+    val="${!var}"
+  elif [ "${!fileVar:-}" ]; then
+    val="$(< "${!fileVar}")"
+  fi
+  export "$var"="$val"
+  unset "$fileVar"
+}
+
 # Timezone
 echo "Setting timezone to ${TZ}..."
 ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime
 echo ${TZ} > /etc/timezone
 
 # SSMTP
+file_env 'SSMTP_PASSWORD'
 echo "Setting SSMTP configuration..."
 if [ -z "$SSMTP_HOST" ] ; then
   echo "WARNING: SSMTP_HOST must be defined if you want fail2ban to send emails"

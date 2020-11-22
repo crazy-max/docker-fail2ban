@@ -10,6 +10,7 @@ ENV FAIL2BAN_VERSION="0.11.1" \
   TZ="UTC"
 
 RUN apk --update --no-cache add \
+    bash \
     curl \
     ipset \
     iptables \

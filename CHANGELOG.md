@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.1-RC4 (2020/11/22)
+
+* Add `SSMTP_PASSWORD_FILE` env var
+
 ## 0.11.1-RC3 (2020/07/30)
 
 * Bringing the `INPUT` and `DOCKER-USER` chains together (#17 #46)
