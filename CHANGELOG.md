@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.1-RC5 (2020/11/22)
+
+* Rebuild to fix tzdata issue with Alpine
+
 ## 0.11.1-RC4 (2020/11/22)
 
 * Add `SSMTP_PASSWORD_FILE` env var
