@@ -1,12 +1,7 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.12
-
-ARG TARGETPLATFORM
-ARG BUILDPLATFORM
-RUN printf "I am running on ${BUILDPLATFORM:-linux/amd64}, building for ${TARGETPLATFORM:-linux/amd64}\n$(uname -a)\n"
-
 LABEL maintainer="CrazyMax"
 
-ENV FAIL2BAN_VERSION="0.11.1" \
+ENV FAIL2BAN_VERSION="0.11.2" \
   TZ="UTC"
 
 RUN apk --update --no-cache add \

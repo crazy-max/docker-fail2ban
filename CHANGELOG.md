@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.2-RC1 (2020/12/23)
+
+* Fail2ban 0.11.2
+
 ## 0.11.1-RC5 (2020/11/22)
 
 * Rebuild to fix tzdata issue with Alpine
