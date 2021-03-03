@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.12
+FROM alpine:3.12
 LABEL maintainer="CrazyMax"
 
 ENV FAIL2BAN_VERSION="0.11.2" \

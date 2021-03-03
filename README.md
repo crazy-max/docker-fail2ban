@@ -18,10 +18,9 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ___
 
-* [Docker](#docker)
-  * [Image](#image)
-  * [Environment variables](#environment-variables)
-  * [Volumes](#volumes)
+* [Image](#image)
+* [Environment variables](#environment-variables)
+* [Volumes](#volumes)
 * [Usage](#usage)
   * [Docker Compose](#docker-compose)
   * [Command line](#command-line)
@@ -37,9 +36,7 @@ ___
 * [How can I help?](#how-can-i-help)
 * [License](#license)
 
-## Docker
-
-### Image
+## Image
 
 | Registry                                                                                         | Image                           |
 |--------------------------------------------------------------------------------------------------|---------------------------------|
@@ -62,7 +59,7 @@ Image: crazymax/fail2ban:latest
    - linux/s390x
 ```
 
-### Environment variables
+## Environment variables
 
 * `TZ`: The timezone assigned to the container (default `UTC`)
 * `F2B_LOG_TARGET`: Set the log target. This could be a file, SYSLOG, STDERR or STDOUT (default `STDOUT`)
@@ -78,7 +75,7 @@ Image: crazymax/fail2ban:latest
 
 > 💡 `SSMTP_PASSWORD_FILE` can be used to fill in the value from a file, especially for Docker's secrets feature.
 
-### Volumes
+## Volumes
 
 * `/data`: Contains customs jails, actions and filters and Fail2ban persistent database
 
