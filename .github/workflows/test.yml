@@ -35,12 +35,11 @@ jobs:
         uses: docker/setup-buildx-action@v1
       -
         name: Build
-        uses: docker/build-push-action@v2
+        uses: docker/bake-action@v1
         with:
-          context: .
-          file: ./Dockerfile
-          load: true
-          tags: ${{ steps.prep.outputs.build_tag }}
+          targets: image-local
+        env:
+          DEFAULT_TAG: ${{ steps.prep.outputs.build_tag }}
       -
         name: Start container
         run: |
