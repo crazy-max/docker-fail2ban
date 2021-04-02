@@ -1,5 +1,5 @@
 variable "DEFAULT_TAG" {
-  default = "msmtpd:local"
+  default = "fail2ban:local"
 }
 
 // Special target: https://github.com/crazy-max/ghaction-docker-meta#bake-definition
