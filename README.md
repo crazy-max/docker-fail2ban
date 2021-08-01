@@ -34,7 +34,7 @@ ___
   * [Use fail2ban-client](#use-fail2ban-client)
   * [Global jail configuration](#global-jail-configuration)
   * [Custom jails, actions and filters](#custom-jails-actions-and-filters)
-* [How can I help?](#how-can-i-help)
+* [Contributing](#contributing)
 * [License](#license)
 
 ## Build locally
@@ -239,12 +239,11 @@ If you add an action/filter that already exists, it will be overriden.
 
 > :warning: Container has to be restarted to propagate changes
 
-## How can I help?
+## Contributing
 
-All kinds of contributions are welcome :raised_hands:! The most basic way to show your support is to star :star2: the
-project, or to raise issues :speech_balloon: You can also support this project by
-[**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) :clap: or by making a
-[Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely! :rocket:
+Want to contribute? Awesome! The most basic way to show your support is to star the project, or to raise issues. You
+can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) or by making
+a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely!
 
 Thanks again for your support, it is much appreciated! :pray:
 

@@ -1,5 +1,4 @@
 FROM alpine:3.12
-LABEL maintainer="CrazyMax"
 
 ENV FAIL2BAN_VERSION="0.11.2" \
   TZ="UTC"
