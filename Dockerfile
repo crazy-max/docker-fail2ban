@@ -1,8 +1,8 @@
-FROM alpine:3.12
+ARG FAIL2BAN_VERSION="0.11.2"
 
-ENV FAIL2BAN_VERSION="0.11.2" \
-  TZ="UTC"
+FROM alpine:3.14
 
+ARG FAIL2BAN_VERSION
 RUN apk --update --no-cache add \
     bash \
     curl \
@@ -34,7 +34,7 @@ RUN apk --update --no-cache add \
 
 COPY entrypoint.sh /entrypoint.sh
 
-RUN chmod a+x /entrypoint.sh
+ENV TZ="UTC"
 
 VOLUME [ "/data" ]
 
