@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.2-r2 (2021/08/19)
+
+* Alpine Linux 3.14 (#100)
+* Switch to buildx bake (#90)
+
 ## 0.11.2-RC1 (2020/12/23)
 
 * Fail2ban 0.11.2
