@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.2-r3 (2021/09/25)
+
+* Add `grep` (#102)
+
 ## 0.11.2-r2 (2021/08/19)
 
 * Alpine Linux 3.14 (#100)
@@ -76,11 +80,11 @@
 
 ## 0.10.4-RC8 (2019/05/06)
 
-* Add `kmod` (Issue #23)
+* Add `kmod` (#23)
 
 ## 0.10.4-RC7 (2019/05/03)
 
-* Add `F2B_LOG_TARGET` var (Issue #22)
+* Add `F2B_LOG_TARGET` var (#22)
 
 ## 0.10.4-RC6 (2019/04/24)
 
@@ -98,11 +102,11 @@
 
 ## 0.10.4-RC3 (2018/10/06)
 
-* Add whois (Issue #6)
+* Add `whois` (#6)
 
 ## 0.10.4-RC2 (2018/10/05)
 
-* Allow to add custom actions and filters through `/data/action.d` and `/data/filter.d` folders (Issue #4)
+* Allow to add custom actions and filters through `/data/action.d` and `/data/filter.d` folders (#4)
 * Relocate database to `/data/db` and jails to `/data/jail.d` (breaking change, see README.md)
 
 ## 0.10.4-RC1 (2018/10/04)
@@ -111,7 +115,7 @@
 
 ## 0.10.3.1-RC4 (2018/08/19)
 
-* Add curl (Issue #1)
+* Add `curl` (#1)
 
 ## 0.10.3.1-RC3 (2018/07/28)
 
