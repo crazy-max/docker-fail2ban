@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.2-r4 (2022/01/11)
+
+* Add SSH client (#110)
+* Alpine Linux 3.15 (#109)
+
 ## 0.11.2-r3 (2021/09/25)
 
 * Add `grep` (#102)
