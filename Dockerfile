@@ -12,8 +12,8 @@ RUN apk --update --no-cache add \
     ip6tables \
     kmod \
     nftables \
+    openssh-client-default \
     python3 \
-    py3-setuptools \
     ssmtp \
     tzdata \
     wget \
@@ -21,6 +21,7 @@ RUN apk --update --no-cache add \
   && apk --update --no-cache add -t build-dependencies \
     build-base \
     py3-pip \
+    py3-setuptools \
     python3-dev \
   && pip3 install --upgrade pip \
   && pip3 install dnspython3 pyinotify \
