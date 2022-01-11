@@ -1,6 +1,6 @@
 ARG FAIL2BAN_VERSION="0.11.2"
 
-FROM alpine:3.14
+FROM alpine:3.15
 
 ARG FAIL2BAN_VERSION
 RUN apk --update --no-cache add \
@@ -31,7 +31,7 @@ RUN apk --update --no-cache add \
   && 2to3 -w --no-diffs bin/* fail2ban \
   && python3 setup.py install \
   && apk del build-dependencies \
-  && rm -rf /etc/fail2ban/jail.d /var/cache/apk/* /tmp/*
+  && rm -rf /etc/fail2ban/jail.d /tmp/*
 
 COPY entrypoint.sh /entrypoint.sh
 
