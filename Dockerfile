@@ -1,9 +1,22 @@
-ARG FAIL2BAN_VERSION="0.11.2"
+# syntax=docker/dockerfile:1
 
-FROM alpine:3.15
+ARG FAIL2BAN_VERSION=0.11.2
+ARG ALPINE_VERSION=3.16
 
+FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS fail2ban-src
+RUN apk add --no-cache git patch
+WORKDIR /src/fail2ban
 ARG FAIL2BAN_VERSION
-RUN apk --update --no-cache add \
+RUN <<EOT
+git clone https://github.com/fail2ban/fail2ban.git .
+git reset --hard $FAIL2BAN_VERSION
+EOT
+COPY patches /src/patches
+RUN for i in /src/patches/*.patch; do patch -p1 < $i; done
+
+FROM alpine:${ALPINE_VERSION}
+RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
+  apk --update --no-cache add \
     bash \
     curl \
     grep \
@@ -25,14 +38,11 @@ RUN apk --update --no-cache add \
     python3-dev \
   && pip3 install --upgrade pip \
   && pip3 install dnspython3 pyinotify \
-  && cd /tmp \
-  && curl -SsOL https://github.com/fail2ban/fail2ban/archive/${FAIL2BAN_VERSION}.zip \
-  && unzip ${FAIL2BAN_VERSION}.zip \
-  && cd fail2ban-${FAIL2BAN_VERSION} \
+  && cd /tmp/fail2ban \
   && 2to3 -w --no-diffs bin/* fail2ban \
   && python3 setup.py install \
   && apk del build-dependencies \
-  && rm -rf /etc/fail2ban/jail.d /tmp/*
+  && rm -rf /etc/fail2ban/jail.d
 
 COPY entrypoint.sh /entrypoint.sh
 
