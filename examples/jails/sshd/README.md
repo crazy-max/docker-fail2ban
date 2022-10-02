@@ -1,13 +1,13 @@
 ## SSHD
 
-To block IPs that have SSHD authentication failures on your host, you have to :
+To block IPs that have SSHD authentication failures on your host, you have to:
 
 * Copy files [jail.d](jail.d) to `./data`
 
-For example :
+For example:
 
-```bash
-docker run -it --name fail2ban --restart always \
+```console
+$ docker run -it --name fail2ban --restart always \
   --network host \
   --cap-add NET_ADMIN \
   --cap-add NET_RAW \
@@ -17,9 +17,9 @@ docker run -it --name fail2ban --restart always \
   crazymax/fail2ban:latest
 ```
 
-Here is the log output if an IP is banned :
+Here is the log output if an IP is banned:
 
-```
+```text
 2018-11-18 21:38:42,410 fail2ban.filterpoll     [1]: DEBUG   /var/log/auth.log has been modified
 2018-11-18 21:38:44,427 fail2ban.filterpoll     [1]: DEBUG   /var/log/auth.log has been modified
 2018-11-18 21:38:44,427 fail2ban.filter         [1]: DEBUG   Processing line with time:1542573523.0 and ip:192.168.51.100

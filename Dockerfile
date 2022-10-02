@@ -1,18 +1,14 @@
 # syntax=docker/dockerfile:1
 
-ARG FAIL2BAN_VERSION=0.11.2
+ARG FAIL2BAN_VERSION=1.0.1
 ARG ALPINE_VERSION=3.16
 
 FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS fail2ban-src
-RUN apk add --no-cache git patch
+RUN apk add --no-cache git
 WORKDIR /src/fail2ban
+RUN git init . && git remote add origin "https://github.com/fail2ban/fail2ban.git"
 ARG FAIL2BAN_VERSION
-RUN <<EOT
-git clone https://github.com/fail2ban/fail2ban.git .
-git reset --hard $FAIL2BAN_VERSION
-EOT
-COPY patches /src/patches
-RUN for i in /src/patches/*.patch; do patch -p1 < $i; done
+RUN git fetch origin "${FAIL2BAN_VERSION}" && git checkout -q FETCH_HEAD
 
 FROM alpine:${ALPINE_VERSION}
 RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
@@ -40,7 +36,7 @@ RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
   && pip3 install dnspython3 pyinotify \
   && cd /tmp/fail2ban \
   && 2to3 -w --no-diffs bin/* fail2ban \
-  && python3 setup.py install \
+  && pip3 install . \
   && apk del build-dependencies \
   && rm -rf /etc/fail2ban/jail.d
 
