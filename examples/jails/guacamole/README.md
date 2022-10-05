@@ -1,8 +1,8 @@
 ## Guacamole
 
-Create the logback configuration in `./config/guacamole/logback.xml` :
+Create the logback configuration in `./config/guacamole/logback.xml`:
 
-```
+```xml
 <configuration>
         <!-- Appender for debugging -->
         <appender name="GUAC-DEBUG" class="ch.qos.logback.core.ConsoleAppender">
@@ -25,11 +25,9 @@ Create the logback configuration in `./config/guacamole/logback.xml` :
 </configuration>
 ```
 
-Create this compose file for guacamole :
+Create this compose file for guacamole:
 
-```
-version: "2"
-
+```yaml
 services:
   guacamole:
     image: oznu/guacamole
@@ -37,11 +35,15 @@ services:
       - ./config:/config
       - /var/log/guacamole:/usr/local/tomcat/logs
     ports:
-      - 8080:8080
+      - target: 8080
+        published: 8080
+        protocol: tcp
 ```
 
-Guacamole will write logs into `/usr/local/tomcat/logs` and bind the folder to `/var/log/guacamole` on the host.
+Guacamole will write logs into `/usr/local/tomcat/logs` and bind the folder
+to `/var/log/guacamole` on the host.
 
 ## Fail2ban container
 
-* Copy files from [filter.d](filter.d) and [jail.d](jail.d) to `./data` in their respective folders.
+* Copy files from [filter.d](filter.d) and [jail.d](jail.d) to `./data` in
+  their respective folders.

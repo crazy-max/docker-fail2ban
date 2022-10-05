@@ -1,5 +1,3 @@
-version: "3.5"
-
 services:
   fail2ban:
     image: crazymax/fail2ban:latest
