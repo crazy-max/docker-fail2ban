@@ -90,7 +90,10 @@ Image: crazymax/fail2ban:latest
 * `SSMTP_TLS`: Use TLS to talk to the SMTP server (default `NO`)
 * `SSMTP_STARTTLS`: Specifies whether ssmtp does a EHLO/STARTTLS before starting SSL negotiation (default `NO`)
 
-> 💡 `SSMTP_PASSWORD_FILE` can be used to fill in the value from a file, especially for Docker's secrets feature.
+> **Note**
+> 
+> `SSMTP_PASSWORD_FILE` can be used to fill in the value from a file, especially
+> for Docker's secrets feature.
 
 ## Volumes
 
