@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1-r0 (2022/10/06)
+
+* Fail2ban 1.0.1 (#130)
+* Alpine Linux 3.16 (#126)
+
 ## 0.11.2-r4 (2022/01/11)
 
 * Add SSH client (#110)
