@@ -100,4 +100,6 @@ for filter in ${filters}; do
   ln -sf "/data/filter.d/${filter}" "/etc/fail2ban/filter.d/"
 done
 
+tail -f ${F2B_LOG_TARGET} &
+
 exec "$@"
