@@ -13,10 +13,6 @@ on:
     paths-ignore:
       - '**.md'
   pull_request:
-    branches:
-      - 'master'
-    paths-ignore:
-      - '**.md'
 
 env:
   DOCKERHUB_SLUG: crazymax/fail2ban

@@ -78,7 +78,7 @@ sed -i "s/dbpurgeage =.*/dbpurgeage = $F2B_DB_PURGE_AGE/g" /etc/fail2ban/fail2ba
 
 # Check custom actions
 echo "Checking for custom actions in /data/action.d..."
-actions=$(ls -l /data/action.d | egrep '^-' | awk '{print $9}')
+actions=$(ls -l /data/action.d | grep -E '^-' | awk '{print $9}')
 for action in ${actions}; do
   if [ -f "/etc/fail2ban/action.d/${action}" ]; then
     echo "  WARNING: ${action} already exists and will be overriden"
@@ -90,7 +90,7 @@ done
 
 # Check custom filters
 echo "Checking for custom filters in /data/filter.d..."
-filters=$(ls -l /data/filter.d | egrep '^-' | awk '{print $9}')
+filters=$(ls -l /data/filter.d | grep -E '^-' | awk '{print $9}')
 for filter in ${filters}; do
   if [ -f "/etc/fail2ban/filter.d/${filter}" ]; then
     echo "  WARNING: ${filter} already exists and will be overriden"
