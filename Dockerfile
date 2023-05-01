@@ -32,13 +32,13 @@ RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
     py3-pip \
     py3-setuptools \
     python3-dev \
-  && pip3 install --upgrade pip \
-  && pip3 install dnspython3 pyinotify \
+  && pip3 install --no-cache-dir --upgrade pip \
+  && pip3 install --no-cache-dir dnspython3 pyinotify \
   && cd /tmp/fail2ban \
   && 2to3 -w --no-diffs bin/* fail2ban \
-  && pip3 install . \
+  && python3 setup.py install --without-tests \
   && apk del build-dependencies \
-  && rm -rf /etc/fail2ban/jail.d
+  && rm -rf /etc/fail2ban/jail.d /root/.cache
 
 COPY entrypoint.sh /entrypoint.sh
 
