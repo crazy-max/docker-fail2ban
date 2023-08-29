@@ -1,3 +1,5 @@
+name: fail2ban
+
 services:
   fail2ban:
     image: ${FAIL2BAN_IMAGE:-crazymax/fail2ban}

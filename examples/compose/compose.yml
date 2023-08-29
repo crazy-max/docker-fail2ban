@@ -1,3 +1,5 @@
+name: fail2ban
+
 services:
   fail2ban:
     image: crazymax/fail2ban:latest
