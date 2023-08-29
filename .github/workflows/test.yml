@@ -1,7 +1,7 @@
 name: test
 
 concurrency:
-  group: test-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
@@ -12,6 +12,11 @@ on:
       - '**.md'
   pull_request:
 
+
+env:
+  BUILD_TAG: fail2ban:test
+  CONTAINER_NAME: fail2ban
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -19,14 +24,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
-      -
-        name: Prepare
-        id: prep
-        run: |
-          echo ::set-output name=build_tag::test
-          echo ::set-output name=container_name::fail2ban
-          echo ::set-output name=running_timeout::120
-          echo ::set-output name=running_log_check::Server ready
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -39,38 +36,28 @@ jobs:
         with:
           targets: image-local
         env:
-          DEFAULT_TAG: ${{ steps.prep.outputs.build_tag }}
+          DEFAULT_TAG: ${{ env.BUILD_TAG }}
       -
-        name: Start container
+        name: Start
         run: |
-          docker rm -f ${{ steps.prep.outputs.container_name }} > /dev/null 2>&1 || true
-          docker run -d --name ${{ steps.prep.outputs.container_name }} \
-            --network host \
-            --cap-add NET_ADMIN \
-            --cap-add NET_RAW \
-            ${{ steps.prep.outputs.build_tag }}
+          docker compose up -d
+        working-directory: test
+        env:
+          FAIL2BAN_IMAGE: ${{ env.BUILD_TAG }}
+          FAIL2BAN_CONTAINER: ${{ env.CONTAINER_NAME }}
       -
-        name: Test run
+        name: Check container logs
+        uses: crazy-max/.github/.github/actions/container-logs-check@main
+        with:
+          container_name: ${{ env.CONTAINER_NAME }}
+          log_check: "Server ready"
+          timeout: 120
+      -
+        name: Logs
+        if: always()
         run: |
-          TIMEOUT=$((SECONDS + ${{ steps.prep.outputs.running_timeout }}))
-          while read LOGLINE; do
-            echo ${LOGLINE}
-            if [[ ${LOGLINE} == *"${{ steps.prep.outputs.running_log_check }}"* ]]; then
-              echo "🎉 Container up!"
-              break
-            fi
-            if [[ $SECONDS -gt ${TIMEOUT} ]]; then
-              >&2 echo "❌ Failed to run ${{ steps.prep.outputs.container_name }} container"
-              docker rm -f ${{ steps.prep.outputs.container_name }} > /dev/null 2>&1 || true
-              exit 1
-            fi
-          done < <(docker logs -f ${{ steps.prep.outputs.container_name }} 2>&1)
-
-          CONTAINER_STATUS=$(docker container inspect --format "{{.State.Status}}" ${{ steps.prep.outputs.container_name }})
-          if [[ ${CONTAINER_STATUS} != "running" ]]; then
-            >&2 echo "❌ Container ${{ steps.prep.outputs.container_name }} returned status '$CONTAINER_STATUS'"
-            docker rm -f ${{ steps.prep.outputs.container_name }} > /dev/null 2>&1 || true
-            exit 1
-          fi
-          docker rm -f ${{ steps.prep.outputs.container_name }} > /dev/null 2>&1 || true
-          echo
+          docker compose logs
+        working-directory: test
+        env:
+          FAIL2BAN_IMAGE: ${{ env.BUILD_TAG }}
+          FAIL2BAN_CONTAINER: ${{ env.CONTAINER_NAME }}

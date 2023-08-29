@@ -109,8 +109,8 @@ for example. Edit the Compose and env files with your preferences and run the
 following commands:
 
 ```console
-$ docker-compose up -d
-$ docker-compose logs -f
+$ docker compose up -d
+$ docker compose logs -f
 ```
 
 ### Command line
@@ -132,8 +132,8 @@ $ docker run -d --name fail2ban --restart always \
 Recreate the container whenever I push an update:
 
 ```console
-$ docker-compose pull
-$ docker-compose up -d
+$ docker compose pull
+$ docker compose up -d
 ```
 
 ## Notes
