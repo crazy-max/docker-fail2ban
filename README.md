@@ -14,8 +14,7 @@
 [Fail2ban](https://www.fail2ban.org) Docker image to ban hosts that cause
 multiple authentication errors.
 
-> **Note**
-> 
+> [!TIP] 
 > Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun)
 > project!
 
@@ -90,8 +89,7 @@ Image: crazymax/fail2ban:latest
 * `SSMTP_TLS`: Use TLS to talk to the SMTP server (default `NO`)
 * `SSMTP_STARTTLS`: Specifies whether ssmtp does a EHLO/STARTTLS before starting SSL negotiation (default `NO`)
 
-> **Note**
-> 
+> [!NOTE] 
 > `SSMTP_PASSWORD_FILE` can be used to fill in the value from a file, especially
 > for Docker's secrets feature.
 
@@ -260,7 +258,7 @@ exists, it will be overriden.
 
 Want to contribute? Awesome! The most basic way to show your support is to star
 the project, or to raise issues. You can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max)
-or by making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this
+or by making a [PayPal donation](https://www.paypal.me/crazyws) to ensure this
 journey continues indefinitely!
 
 Thanks again for your support, it is much appreciated! :pray:
