@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG FAIL2BAN_VERSION=1.0.2
+ARG FAIL2BAN_VERSION=1.1.0
 ARG ALPINE_VERSION=3.18
 
 FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS fail2ban-src
