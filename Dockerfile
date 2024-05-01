@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 ARG FAIL2BAN_VERSION=1.1.0
-ARG ALPINE_VERSION=3.18
+ARG ALPINE_VERSION=3.19
 
 FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS fail2ban-src
 RUN apk add --no-cache git
@@ -23,6 +23,8 @@ RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
     nftables \
     openssh-client-default \
     python3 \
+    py3-dnspython \
+    py3-inotify \
     ssmtp \
     tzdata \
     wget \
@@ -32,8 +34,6 @@ RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
     py3-pip \
     py3-setuptools \
     python3-dev \
-  && pip3 install --no-cache-dir --upgrade pip \
-  && pip3 install --no-cache-dir dnspython3 pyinotify \
   && cd /tmp/fail2ban \
   && 2to3 -w --no-diffs bin/* fail2ban \
   && python3 setup.py install --without-tests \
