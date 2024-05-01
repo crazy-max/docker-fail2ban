@@ -229,8 +229,7 @@ sender = root@$(hostname -f)
 action = %(action_mwl)s
 ```
 
-> **Warning**
-> 
+> [!WARNING]
 > If you want email to be sent after a ban, you have to configure SSMTP env vars
 
 FYI, here is the order *jail* configuration would be loaded:
@@ -250,8 +249,7 @@ Custom jails, actions and filters can be added respectively in `/data/jail.d`,
 `/data/action.d` and `/data/filter.d`. If you add an action/filter that already
 exists, it will be overriden.
 
-> **Warning**
-> 
+> [!WARNING]
 > Container has to be restarted to propagate changes
 
 ## Contributing
