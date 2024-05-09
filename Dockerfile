@@ -18,7 +18,7 @@ RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
     grep \
     ipset \
     iptables \
-    ip6tables \
+    iptables-legacy \
     kmod \
     nftables \
     openssh-client-default \
