@@ -32,7 +32,6 @@ ___
   * [`DOCKER-USER` chain](#docker-user-chain)
   * [`DOCKER-USER` and `INPUT` chains](#docker-user-and-input-chains)
   * [Jails examples](#jails-examples)
-  * [Use iptables tooling without nftables backend](#use-iptables-tooling-without-nftables-backend)
   * [Use fail2ban-client](#use-fail2ban-client)
   * [Global jail configuration](#global-jail-configuration)
   * [Custom jails, actions and filters](#custom-jails-actions-and-filters)
@@ -81,6 +80,7 @@ Image: crazymax/fail2ban:latest
 * `F2B_LOG_TARGET`: Set the log target. This could be a file, SYSLOG, STDERR or STDOUT (default `STDOUT`)
 * `F2B_LOG_LEVEL`: Log level output (default `INFO`)
 * `F2B_DB_PURGE_AGE`: Age at which bans should be purged from the database (default `1d`)
+* `IPTABLES_MODE`: Choose between iptables `nft` or `legacy` mode. (default `auto`)
 * `SSMTP_HOST`: SMTP server host
 * `SSMTP_PORT`: SMTP server port (default `25`)
 * `SSMTP_HOSTNAME`: Full hostname (default `$(hostname -f)`)
@@ -172,38 +172,6 @@ And others using the `INPUT` chain:
 
 * [proxmox](examples/jails/proxmox)
 * [sshd](examples/jails/sshd)
-
-### Use iptables tooling without nftables backend
-
-As you may know, [nftables](https://wiki.nftables.org) is available as a modern
-replacement for the kernel's iptables subsystem on Linux. 
-
-This image still uses `iptables` to preserve backwards compatibility but [an issue is opened](https://github.com/crazy-max/docker-fail2ban/issues/29)
-about its implementation.
-
-If your system's `iptables` tooling uses the nftables backend, this will throw
-the error `stderr: 'iptables: No chain/target/match by that name.'`. You need
-to switch the `iptables` tooling to 'legacy' mode to avoid these problems. This
-is the case on at least Debian 10 (Buster), Ubuntu 19.04, Fedora 29 and newer
-releases of these distributions by default. RHEL 8 does not support switching
-to legacy mode, and is therefore currently incompatible with this image.
-
-On Ubuntu or Debian:
-
-```console
-$ update-alternatives --set iptables /usr/sbin/iptables-legacy
-$ update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-$ update-alternatives --set arptables /usr/sbin/arptables-legacy
-$ update-alternatives --set ebtables /usr/sbin/ebtables-legacy
-```
-
-On Fedora:
-
-```console
-$ update-alternatives --set iptables /usr/sbin/iptables-legacy
-```
-
-Then reboot to apply changes.
 
 ### Use fail2ban-client
 

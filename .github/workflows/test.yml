@@ -20,6 +20,13 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        iptables:
+          - auto
+          - nft
+          - legacy
     steps:
       -
         name: Checkout
@@ -45,6 +52,7 @@ jobs:
         env:
           FAIL2BAN_IMAGE: ${{ env.BUILD_TAG }}
           FAIL2BAN_CONTAINER: ${{ env.CONTAINER_NAME }}
+          IPTABLES_MODE: ${{ matrix.iptables }}
       -
         name: Check container logs
         uses: crazy-max/.github/.github/actions/container-logs-check@main
