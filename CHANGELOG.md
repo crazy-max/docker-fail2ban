@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0-r1 (2024/05/09)
+
+* Support iptables-legacy for old kernels (#165)
+* Fallback to iptables-legacy if host doesn't support nft. Mode can be enforced
+  with `IPTABLES_MODE` env var (#167)
+
 ## 1.1.0-r0 (2024/05/01)
 
 * Fail2ban 1.1.0 (#162)
