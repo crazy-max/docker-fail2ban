@@ -35,6 +35,7 @@ ___
   * [Use fail2ban-client](#use-fail2ban-client)
   * [Global jail configuration](#global-jail-configuration)
   * [Custom jails, actions and filters](#custom-jails-actions-and-filters)
+  * [Sending email using a sidecar container](#sending-email-using-a-sidecar-container)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -169,7 +170,7 @@ through the container. Here is an example if you want to ban an IP manually:
 
 ```console
 $ docker exec -t <CONTAINER> fail2ban-client set <JAIL> banip <IP>
-``` 
+```
 
 ### Global jail configuration
 
@@ -201,6 +202,12 @@ exists, it will be overriden.
 
 > [!WARNING]
 > Container has to be restarted to propagate changes
+
+### Sending email using a sidecar container
+
+If you want to send emails using a sidecar container, see the example in
+[examples/smtp](examples/smtp). It uses the [smtp.py action](https://github.com/fail2ban/fail2ban/blob/1.1.0/config/action.d/smtp.py)
+and [msmtpd SMTP relay](https://github.com/crazy-max/docker-msmtpd) image.
 
 ## Contributing
 

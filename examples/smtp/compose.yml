@@ -1,0 +1,29 @@
+name: fail2ban
+
+services:
+  msmtpd:
+    image: crazymax/msmtpd:latest
+    container_name: fail2ban_msmtpd
+    env_file:
+      - "./msmtpd.env"
+    ports:
+      - "127.0.0.1:2500:2500"
+    environment:
+      - "TZ"
+    restart: always
+
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    container_name: fail2ban
+    depends_on:
+      - msmtpd
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - "./data:/data"
+      - "/var/log:/var/log:ro"
+    env_file:
+      - "./fail2ban.env"
+    restart: always
