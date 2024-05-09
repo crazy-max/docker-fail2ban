@@ -101,4 +101,7 @@ for filter in ${filters}; do
   ln -sf "/data/filter.d/${filter}" "/etc/fail2ban/filter.d/"
 done
 
+iptables -V
+nft -v
+
 exec "$@"
