@@ -3,6 +3,23 @@
 ARG FAIL2BAN_VERSION=1.1.0
 ARG ALPINE_VERSION=3.19
 
+# https://github.com/kubernetes-sigs/iptables-wrappers
+ARG IPTABLES_WRAPPER_VERSION=f6ef44b2c449cca8f005b32dea9a4b497202dbef
+ARG GO_VERSION=1.21
+ARG XX_VERSION=1.4.0
+
+FROM --platform=${BUILDPLATFORM} tonistiigi/xx:${XX_VERSION} AS xx
+FROM --platform=${BUILDPLATFORM} golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS iw-builder
+RUN apk --update --no-cache add file
+COPY --from=xx / /
+WORKDIR /src
+ARG IPTABLES_WRAPPER_VERSION
+ADD "https://github.com/kubernetes-sigs/iptables-wrappers.git#${IPTABLES_WRAPPER_VERSION}" .
+ARG TARGETPLATFORM
+ENV CGO_ENABLED=0
+RUN xx-go build -v -trimpath -o /bin/iptables-wrapper -ldflags='-s -w -extldflags="-static" -buildid=""' . \
+  && xx-verify --static /bin/iptables-wrapper
+
 FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS fail2ban-src
 RUN apk add --no-cache git
 WORKDIR /src/fail2ban
@@ -16,6 +33,7 @@ RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
     bash \
     curl \
     grep \
+    iproute2 \
     ipset \
     iptables \
     iptables-legacy \
@@ -39,6 +57,10 @@ RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
   && python3 setup.py install --without-tests \
   && apk del build-dependencies \
   && rm -rf /etc/fail2ban/jail.d /root/.cache
+
+COPY --from=iw-builder /src/iptables-wrapper-installer.sh /
+COPY --from=iw-builder /bin/iptables-wrapper /
+RUN /iptables-wrapper-installer.sh --no-sanity-check
 
 COPY entrypoint.sh /entrypoint.sh
 
