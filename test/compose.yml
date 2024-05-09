@@ -13,4 +13,6 @@ services:
       - "/var/log:/var/log:ro"
     env_file:
       - "./fail2ban.env"
+    environment:
+      - "IPTABLES_MODE=${IPTABLES_MODE:-auto}"
     restart: always

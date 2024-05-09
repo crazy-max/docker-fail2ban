@@ -5,6 +5,7 @@ TZ=${TZ:-UTC}
 F2B_LOG_TARGET=${F2B_LOG_TARGET:-STDOUT}
 F2B_LOG_LEVEL=${F2B_LOG_LEVEL:-INFO}
 F2B_DB_PURGE_AGE=${F2B_DB_PURGE_AGE:-1d}
+IPTABLES_MODE=${IPTABLES_MODE:-auto}
 
 SSMTP_PORT=${SSMTP_PORT:-25}
 SSMTP_HOSTNAME=${SSMTP_HOSTNAME:-$(hostname -f)}
@@ -100,5 +101,25 @@ for filter in ${filters}; do
   echo "  Add custom filter ${filter}..."
   ln -sf "/data/filter.d/${filter}" "/etc/fail2ban/filter.d/"
 done
+
+iptablesLegacy=0
+if [ "$IPTABLES_MODE" = "auto" ] && ! iptables -L &> /dev/null; then
+  echo "WARNING: iptables-nft is not supported by the host, falling back to iptables-legacy"
+  iptablesLegacy=1
+elif [ "$IPTABLES_MODE" = "legacy" ]; then
+  echo "WARNING: iptables-legacy enforced"
+  iptablesLegacy=1
+fi
+if [ "$iptablesLegacy" -eq 1 ]; then
+  ln -sf /sbin/xtables-legacy-multi /sbin/iptables
+  ln -sf /sbin/xtables-legacy-multi /sbin/iptables-save
+  ln -sf /sbin/xtables-legacy-multi /sbin/iptables-restore
+  ln -sf /sbin/xtables-legacy-multi /sbin/ip6tables
+  ln -sf /sbin/xtables-legacy-multi /sbin/ip6tables-save
+  ln -sf /sbin/xtables-legacy-multi /sbin/ip6tables-restore
+fi
+
+iptables -V
+nft -v
 
 exec "$@"
