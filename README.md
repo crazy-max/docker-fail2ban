@@ -61,17 +61,16 @@ docker buildx bake image-all
 Following platforms for this image are available:
 
 ```
-$ docker run --rm mplatform/mquery crazymax/fail2ban:latest
-Image: crazymax/fail2ban:latest
- * Manifest List: Yes
- * Supported platforms:
-   - linux/amd64
-   - linux/arm/v6
-   - linux/arm/v7
-   - linux/arm64
-   - linux/386
-   - linux/ppc64le
-   - linux/s390x
+$ docker buildx imagetools inspect crazymax/fail2ban --format "{{json .Manifest}}" | \
+  jq -r '.manifests[] | select(.platform.os != null and .platform.os != "unknown") | .platform | "\(.os)/\(.architecture)\(if .variant then "/" + .variant else "" end)"'
+
+linux/386
+linux/amd64
+linux/arm/v6
+linux/arm/v7
+linux/arm64
+linux/ppc64le
+linux/s390x
 ```
 
 ## Environment variables
