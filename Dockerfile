@@ -25,7 +25,6 @@ RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
     python3 \
     py3-dnspython \
     py3-inotify \
-    ssmtp \
     tzdata \
     wget \
     whois \
