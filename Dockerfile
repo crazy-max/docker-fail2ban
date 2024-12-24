@@ -1,17 +1,14 @@
 # syntax=docker/dockerfile:1
 
 ARG FAIL2BAN_VERSION=1.1.0
-ARG ALPINE_VERSION=3.19
+ARG ALPINE_VERSION=3.21
 
-FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS fail2ban-src
-RUN apk add --no-cache git
-WORKDIR /src/fail2ban
-RUN git init . && git remote add origin "https://github.com/fail2ban/fail2ban.git"
+FROM scratch AS src
 ARG FAIL2BAN_VERSION
-RUN git fetch origin "${FAIL2BAN_VERSION}" && git checkout -q FETCH_HEAD
+ADD "https://github.com/fail2ban/fail2ban.git#${FAIL2BAN_VERSION}" .
 
 FROM alpine:${ALPINE_VERSION}
-RUN --mount=from=fail2ban-src,source=/src/fail2ban,target=/tmp/fail2ban,rw \
+RUN --mount=from=src,target=/tmp/fail2ban,rw \
   apk --update --no-cache add \
     bash \
     curl \
