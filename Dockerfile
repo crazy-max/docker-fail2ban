@@ -3,7 +3,7 @@
 ARG FAIL2BAN_VERSION=1.1.0
 ARG ALPINE_VERSION=3.21
 
-FROM scratch AS src
+FROM --platform=$BUILDPLATFORM scratch AS src
 ARG FAIL2BAN_VERSION
 ADD "https://github.com/fail2ban/fail2ban.git#${FAIL2BAN_VERSION}" .
 
@@ -22,7 +22,6 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
     python3 \
     py3-dnspython \
     py3-inotify \
-    ssmtp \
     tzdata \
     wget \
     whois \

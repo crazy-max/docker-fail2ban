@@ -35,6 +35,7 @@ ___
   * [Use fail2ban-client](#use-fail2ban-client)
   * [Global jail configuration](#global-jail-configuration)
   * [Custom jails, actions and filters](#custom-jails-actions-and-filters)
+  * [Sending email using a sidecar container](#sending-email-using-a-sidecar-container)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -81,17 +82,6 @@ linux/s390x
 * `F2B_LOG_LEVEL`: Log level output (default `INFO`)
 * `F2B_DB_PURGE_AGE`: Age at which bans should be purged from the database (default `1d`)
 * `IPTABLES_MODE`: Choose between iptables `nft` or `legacy` mode. (default `auto`)
-* `SSMTP_HOST`: SMTP server host
-* `SSMTP_PORT`: SMTP server port (default `25`)
-* `SSMTP_HOSTNAME`: Full hostname (default `$(hostname -f)`)
-* `SSMTP_USER`: SMTP username
-* `SSMTP_PASSWORD`: SMTP password
-* `SSMTP_TLS`: Use TLS to talk to the SMTP server (default `NO`)
-* `SSMTP_STARTTLS`: Specifies whether ssmtp does a EHLO/STARTTLS before starting SSL negotiation (default `NO`)
-
-> [!NOTE] 
-> `SSMTP_PASSWORD_FILE` can be used to fill in the value from a file, especially
-> for Docker's secrets feature.
 
 ## Volumes
 
@@ -180,34 +170,27 @@ through the container. Here is an example if you want to ban an IP manually:
 
 ```console
 $ docker exec -t <CONTAINER> fail2ban-client set <JAIL> banip <IP>
-``` 
+```
 
 ### Global jail configuration
 
 You can provide customizations in `/data/jail.d/*.local` files.
 
-For example to change the default bantime for all jails, send an e-mail with
-whois report and relevant log lines to the destemail:
+For example, to change the default bantime for all jails:
 
 ```text
 [DEFAULT]
 bantime = 1h
-destemail = root@localhost
-sender = root@$(hostname -f)
-action = %(action_mwl)s
 ```
 
-> [!WARNING]
-> If you want email to be sent after a ban, you have to configure SSMTP env vars
-
-FYI, here is the order *jail* configuration would be loaded:
-
-```text
-jail.conf
-jail.d/*.conf (in alphabetical order)
-jail.local
-jail.d/*.local (in alphabetical order)
-```
+> [!NOTE]
+> Loading order for jail configuration:
+> ```text
+> jail.conf
+> jail.d/*.conf (in alphabetical order)
+> jail.local
+> jail.d/*.local (in alphabetical order)
+> ```
 
 A sample configuration file is [available on the official repository](https://github.com/fail2ban/fail2ban/blob/master/config/jail.conf).
 
@@ -219,6 +202,12 @@ exists, it will be overriden.
 
 > [!WARNING]
 > Container has to be restarted to propagate changes
+
+### Sending email using a sidecar container
+
+If you want to send emails using a sidecar container, see the example in
+[examples/smtp](examples/smtp). It uses the [smtp.py action](https://github.com/fail2ban/fail2ban/blob/1.1.0/config/action.d/smtp.py)
+and [msmtpd SMTP relay](https://github.com/crazy-max/docker-msmtpd) image.
 
 ## Contributing
 

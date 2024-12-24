@@ -1,0 +1,2 @@
+[DEFAULT]
+action = smtp.py[host=localhost:2500, sendername=Fail2Ban, sender=foo@gmail.com, dest=foo@gmail.com]
