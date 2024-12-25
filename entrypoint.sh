@@ -58,12 +58,12 @@ elif [ "$IPTABLES_MODE" = "legacy" ]; then
   iptablesLegacy=1
 fi
 if [ "$iptablesLegacy" -eq 1 ]; then
-  ln -sf /sbin/xtables-legacy-multi /sbin/iptables
-  ln -sf /sbin/xtables-legacy-multi /sbin/iptables-save
-  ln -sf /sbin/xtables-legacy-multi /sbin/iptables-restore
-  ln -sf /sbin/xtables-legacy-multi /sbin/ip6tables
-  ln -sf /sbin/xtables-legacy-multi /sbin/ip6tables-save
-  ln -sf /sbin/xtables-legacy-multi /sbin/ip6tables-restore
+  ln -sf /usr/sbin/xtables-legacy-multi /usr/sbin/iptables
+  ln -sf /usr/sbin/xtables-legacy-multi /usr/sbin/iptables-save
+  ln -sf /usr/sbin/xtables-legacy-multi /usr/sbin/iptables-restore
+  ln -sf /usr/sbin/xtables-legacy-multi /usr/sbin/ip6tables
+  ln -sf /usr/sbin/xtables-legacy-multi /usr/sbin/ip6tables-save
+  ln -sf /usr/sbin/xtables-legacy-multi /usr/sbin/ip6tables-restore
 fi
 
 iptables -V
