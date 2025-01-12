@@ -69,4 +69,7 @@ fi
 iptables -V
 nft -v
 
+# add small delay to avoid trying to send mail before msmtpd is ready
+sleep 2
+
 exec "$@"
