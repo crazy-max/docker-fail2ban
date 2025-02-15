@@ -16,7 +16,9 @@ services:
     image: crazymax/fail2ban:latest
     container_name: fail2ban
     depends_on:
-      - msmtpd
+      msmtpd:
+        condition: service_healthy
+        required: true
     network_mode: "host"
     cap_add:
       - NET_ADMIN
