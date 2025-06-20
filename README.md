@@ -11,7 +11,7 @@
 
 ## About
 
-[Fail2ban](https://www.fail2ban.org) Docker image to ban hosts that cause
+[Fail2ban](https://github.com/fail2ban/fail2ban) Docker image to ban hosts that cause
 multiple authentication errors.
 
 > [!TIP] 
