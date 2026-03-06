@@ -9,7 +9,7 @@ ADD "https://github.com/fail2ban/fail2ban.git#${FAIL2BAN_VERSION}" .
 
 FROM alpine:${ALPINE_VERSION}
 RUN --mount=from=src,target=/tmp/fail2ban,rw \
-  apk --update --no-cache add \
+  apk add --no-cache \
     bash \
     curl \
     grep \
@@ -25,14 +25,19 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
     tzdata \
     wget \
     whois \
-  && apk --update --no-cache add -t build-dependencies \
+  && apk add --no-cache -t build-dependencies \
     build-base \
     py3-pip \
     py3-setuptools \
+    py3-wheel \
     python3-dev \
-  && cd /tmp/fail2ban \
-  && 2to3 -w --no-diffs bin/* fail2ban \
-  && python3 setup.py install --without-tests \
+  && python3 -m pip install \
+    --no-cache-dir \
+    --no-build-isolation \
+    --use-pep517 \
+    --root-user-action=ignore \
+    --break-system-packages \
+    /tmp/fail2ban \
   && apk del build-dependencies \
   && rm -rf /etc/fail2ban/jail.d /root/.cache
 
