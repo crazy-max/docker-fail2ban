@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 ARG FAIL2BAN_VERSION=1.1.0
-ARG ALPINE_VERSION=3.22
+ARG ALPINE_VERSION=3.23
 
 FROM --platform=$BUILDPLATFORM scratch AS src
 ARG FAIL2BAN_VERSION
@@ -9,7 +9,7 @@ ADD "https://github.com/fail2ban/fail2ban.git#${FAIL2BAN_VERSION}" .
 
 FROM alpine:${ALPINE_VERSION}
 RUN --mount=from=src,target=/tmp/fail2ban,rw \
-  apk --update --no-cache add \
+  apk add --no-cache \
     bash \
     curl \
     grep \
@@ -25,7 +25,7 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
     tzdata \
     wget \
     whois \
-  && apk --update --no-cache add -t build-dependencies \
+  && apk add --no-cache -t build-dependencies \
     build-base \
     py3-pip \
     py3-setuptools \
