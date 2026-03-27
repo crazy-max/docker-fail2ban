@@ -4,7 +4,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
 permissions:
   contents: read
 
@@ -12,10 +11,7 @@ on:
   push:
     branches:
       - 'master'
-    paths-ignore:
-      - '**.md'
   pull_request:
-
 
 env:
   BUILD_TAG: fail2ban:test
@@ -34,16 +30,16 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       -
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
+        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
       -
         name: Build
-        uses: docker/bake-action@v7
+        uses: docker/bake-action@82490499d2e5613fcead7e128237ef0b0ea210f7 # v7.0.0
         with:
           source: .
           targets: image-local
@@ -60,7 +56,7 @@ jobs:
           IPTABLES_MODE: ${{ matrix.iptables }}
       -
         name: Check container logs
-        uses: crazy-max/.github/.github/actions/container-logs-check@main
+        uses: crazy-max/.github/.github/actions/container-logs-check@bbd31df64ee0f097a02f12495f541f9236f18c46 # v1.2.0
         with:
           container_name: ${{ env.CONTAINER_NAME }}
           log_check: "Server ready"

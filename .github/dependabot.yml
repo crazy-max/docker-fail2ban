@@ -4,8 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "08:00"
-      timezone: "Europe/Paris"
+    cooldown:
+      default-days: 2
     labels:
       - "kind/dependencies"
       - "bot"
