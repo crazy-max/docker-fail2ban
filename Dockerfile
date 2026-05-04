@@ -22,13 +22,13 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
     python3 \
     py3-dnspython \
     py3-inotify \
+    py3-setuptools \
     tzdata \
     wget \
     whois \
   && apk add --no-cache -t build-dependencies \
     build-base \
     py3-pip \
-    py3-setuptools \
     python3-dev \
   && cd /tmp/fail2ban \
   && 2to3 -w --no-diffs bin/* fail2ban \
