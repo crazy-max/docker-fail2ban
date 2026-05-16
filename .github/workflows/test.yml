@@ -56,7 +56,7 @@ jobs:
           IPTABLES_MODE: ${{ matrix.iptables }}
       -
         name: Check container logs
-        uses: crazy-max/.github/.github/actions/container-logs-check@bbd31df64ee0f097a02f12495f541f9236f18c46 # v1.2.0
+        uses: crazy-max/.github/.github/actions/container-logs-check@9ba6e6f9450baf3b1237f8035c1fdc45932510bd # v1.8.0
         with:
           container_name: ${{ env.CONTAINER_NAME }}
           log_check: "Server ready"
