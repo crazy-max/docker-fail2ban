@@ -1,0 +1,2 @@
+[DEFAULT]
+ignorecommand = /bin/sh /data/ignorecommands/geoip-allow-country <ip>

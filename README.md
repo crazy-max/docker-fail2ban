@@ -36,6 +36,7 @@ ___
   * [Use fail2ban-client](#use-fail2ban-client)
   * [Global jail configuration](#global-jail-configuration)
   * [Custom jails, actions and filters](#custom-jails-actions-and-filters)
+  * [GeoIP2](#geoip2)
   * [Sending email using a sidecar container](#sending-email-using-a-sidecar-container)
   * [systemd journal backend](#systemd-journal-backend)
 * [Contributing](#contributing)
@@ -202,6 +203,21 @@ exists, it will be overriden.
 
 > [!WARNING]
 > Container has to be restarted to propagate changes
+
+### GeoIP2
+
+If you want to use MaxMind GeoIP2 databases with Fail2Ban, see the example in
+[examples/geoip](examples/geoip). It runs the
+[geoip-updater](https://github.com/crazy-max/geoip-updater) image as a sidecar,
+mounts the downloaded `GeoLite2-Country.mmdb` database in `/data/geoip`, and
+uses a custom `ignorecommand`.
+
+In this example, `GEOIP_ALLOWED_COUNTRIES=FR,BE,CH` means IPs from these
+countries are ignored by Fail2Ban and will not be banned. IPs from other
+countries follow the regular jail behavior. This is not proactive country
+blocking, Fail2Ban still only reacts to matching log entries.
+
+You need to set `LICENSE_KEY` in `geoip-updater.env`.
 
 ### Sending email using a sidecar container
 

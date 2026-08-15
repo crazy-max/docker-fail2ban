@@ -1,0 +1,30 @@
+#!/bin/sh
+
+ip="${1:-}"
+db="${GEOIP_DB:-/data/geoip/GeoLite2-Country.mmdb}"
+allowed_countries="${GEOIP_ALLOWED_COUNTRIES:-}"
+
+if [ -z "$ip" ] || [ -z "$allowed_countries" ] || [ ! -r "$db" ]; then
+  exit 1
+fi
+
+country="$(
+  mmdblookup --file "$db" --ip "$ip" country iso_code 2>/dev/null \
+    | awk -F '"' '/utf8_string/ { print $2; exit }'
+)"
+
+if [ -z "$country" ]; then
+  exit 1
+fi
+
+country="$(printf '%s' "$country" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]')"
+allowed_countries="$(printf '%s' "$allowed_countries" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]')"
+
+case ",$allowed_countries," in
+  *,"$country",*)
+    exit 0
+    ;;
+  *)
+    exit 1
+    ;;
+esac

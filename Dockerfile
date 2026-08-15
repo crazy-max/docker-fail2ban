@@ -21,6 +21,7 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
     iptables \
     jq \
     kmod \
+    mmdb-bin \
     nftables \
     openssh-client \
     python3 \
@@ -65,6 +66,7 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
     iptables-legacy \
     jq \
     kmod \
+    libmaxminddb \
     nftables \
     openssh-client-default \
     python3 \
