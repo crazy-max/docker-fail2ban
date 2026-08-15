@@ -16,6 +16,7 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
     ipset \
     iptables \
     iptables-legacy \
+    jq \
     kmod \
     nftables \
     openssh-client-default \
