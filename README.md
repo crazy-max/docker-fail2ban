@@ -11,8 +11,8 @@
 
 ## About
 
-[Fail2ban](https://github.com/fail2ban/fail2ban) Docker image to ban hosts that cause
-multiple authentication errors.
+[Fail2ban](https://github.com/fail2ban/fail2ban) Docker image to ban hosts that
+cause multiple authentication errors.
 
 > [!TIP] 
 > Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun)
@@ -22,6 +22,7 @@ ___
 
 * [Build locally](#build-locally)
 * [Image](#image)
+* [Supported tags](#supported-tags)
 * [Environment variables](#environment-variables)
 * [Volumes](#volumes)
 * [Usage](#usage)
@@ -36,6 +37,7 @@ ___
   * [Global jail configuration](#global-jail-configuration)
   * [Custom jails, actions and filters](#custom-jails-actions-and-filters)
   * [Sending email using a sidecar container](#sending-email-using-a-sidecar-container)
+  * [systemd journal backend](#systemd-journal-backend)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -45,11 +47,17 @@ ___
 git clone https://github.com/crazy-max/docker-fail2ban.git
 cd docker-fail2ban
 
-# Build image and output to docker (default)
+# Build Alpine image and output to docker (default)
 docker buildx bake
 
-# Build multi-platform image
+# Build Alpine multi-platform image
 docker buildx bake image-all
+
+# Build Debian image and output to docker
+docker buildx bake image-debian-local
+
+# Build Debian multi-platform image
+docker buildx bake image-debian-all
 ```
 
 ## Image
@@ -59,21 +67,13 @@ docker buildx bake image-all
 | [Docker Hub](https://hub.docker.com/r/crazymax/fail2ban/)                                           | `crazymax/fail2ban`          |
 | [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/fail2ban) | `ghcr.io/crazy-max/fail2ban` |
 
-Following platforms for this image are available:
+## Supported tags
 
-```
-$ docker buildx imagetools inspect crazymax/fail2ban --format "{{json .Manifest}}" | \
-  jq -r '.manifests[] | select(.platform.os != null and .platform.os != "unknown") | .platform | "\(.os)/\(.architecture)\(if .variant then "/" + .variant else "" end)"'
+* `latest`, `<version>`, `edge`
+* `debian`, `<version>-debian`, `edge-debian`
 
-linux/386
-linux/amd64
-linux/arm/v6
-linux/arm/v7
-linux/arm64
-linux/ppc64le
-linux/riscv64
-linux/s390x
-```
+> `<version>` has to be replaced with one of the Fail2ban releases available
+> (e.g. `1.1.0`). Tags without a `debian` suffix are Alpine-based.
 
 ## Environment variables
 
@@ -208,6 +208,12 @@ exists, it will be overriden.
 If you want to send emails using a sidecar container, see the example in
 [examples/smtp](examples/smtp). It uses the [smtp.py action](https://github.com/fail2ban/fail2ban/blob/1.1.0/config/action.d/smtp.py)
 and [msmtpd SMTP relay](https://github.com/crazy-max/docker-msmtpd) image.
+
+### systemd journal backend
+
+If you want to use Fail2ban's `backend = systemd`, see the example in
+[examples/systemd](examples/systemd). It uses the Debian image variant with
+Python systemd bindings and mounts the host journal read-only.
 
 ## Contributing
 

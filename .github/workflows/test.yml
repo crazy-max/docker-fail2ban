@@ -19,14 +19,36 @@ env:
 
 jobs:
   test:
+    name: ${{ matrix.variant }} (${{ matrix.iptables }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        iptables:
-          - auto
-          - nft
-          - legacy
+        include:
+          -
+            variant: alpine
+            target: image-local
+            iptables: auto
+          -
+            variant: alpine
+            target: image-local
+            iptables: nft
+          -
+            variant: alpine
+            target: image-local
+            iptables: legacy
+          -
+            variant: debian
+            target: image-debian-local
+            iptables: auto
+          -
+            variant: debian
+            target: image-debian-local
+            iptables: nft
+          -
+            variant: debian
+            target: image-debian-local
+            iptables: legacy
     steps:
       -
         name: Checkout
@@ -42,7 +64,7 @@ jobs:
         uses: docker/bake-action@d3418bd7d0e9324001bca92fa8ba175ea7e6dc9b # v7.3.0
         with:
           source: .
-          targets: image-local
+          targets: ${{ matrix.target }}
         env:
           DEFAULT_TAG: ${{ env.BUILD_TAG }}
       -

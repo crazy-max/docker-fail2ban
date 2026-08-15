@@ -14,6 +14,12 @@ group "default" {
 
 target "image" {
   inherits = ["docker-metadata-action"]
+  target = "alpine"
+}
+
+target "image-debian" {
+  inherits = ["docker-metadata-action"]
+  target = "debian"
 }
 
 target "image-local" {
@@ -21,16 +27,26 @@ target "image-local" {
   output = ["type=docker"]
 }
 
-target "image-all" {
-  inherits = ["image"]
+target "image-debian-local" {
+  inherits = ["image-debian"]
+  output = ["type=docker"]
+}
+
+target "_platforms" {
   platforms = [
-    "linux/386",
     "linux/amd64",
-    "linux/arm/v6",
     "linux/arm/v7",
     "linux/arm64",
     "linux/ppc64le",
     "linux/riscv64",
     "linux/s390x"
   ]
+}
+
+target "image-all" {
+  inherits = ["image", "_platforms"]
+}
+
+target "image-debian-all" {
+  inherits = ["image-debian", "_platforms"]
 }

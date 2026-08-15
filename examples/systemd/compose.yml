@@ -1,0 +1,18 @@
+name: fail2ban
+
+services:
+  fail2ban:
+    image: crazymax/fail2ban:debian
+    container_name: fail2ban
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - "./data:/data"
+      - "/run/log/journal:/run/log/journal:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/etc/machine-id:/etc/machine-id:ro"
+    env_file:
+      - "./fail2ban.env"
+    restart: always
