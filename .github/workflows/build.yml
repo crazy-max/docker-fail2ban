@@ -17,6 +17,28 @@ on:
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          -
+            name: alpine
+            target: image-all
+            meta-flavor: ""
+            meta-tags: |
+              type=match,pattern=(.*)-r,group=1
+              type=ref,event=pr
+              type=edge
+          -
+            name: debian
+            target: image-debian-all
+            meta-flavor: |
+              latest=false
+            meta-tags: |
+              type=match,pattern=(.*)-r,group=1,suffix=-debian
+              type=ref,event=pr,suffix=-debian
+              type=edge,suffix=-debian
+              type=raw,value=debian,enable=${{ startsWith(github.ref, 'refs/tags/') }}
     uses: docker/github-builder/.github/workflows/bake.yml@a492c6d04fd3315f67230809b44d60cc0acd50b3 # v1.16.0
     permissions:
       contents: read # same as global permissions
@@ -24,17 +46,15 @@ jobs:
       packages: write # required to push to GHCR
     with:
       setup-qemu: true
-      target: image-all
+      target: ${{ matrix.target }}
       output: image
       push: ${{ github.event_name != 'pull_request' }}
       set-meta-labels: true
+      meta-flavor: ${{ matrix.meta-flavor }}
       meta-images: |
         crazymax/fail2ban
         ghcr.io/crazy-max/fail2ban
-      meta-tags: |
-        type=match,pattern=(.*)-r,group=1
-        type=ref,event=pr
-        type=edge
+      meta-tags: ${{ matrix.meta-tags }}
       meta-labels: |
         org.opencontainers.image.title=Fail2ban
         org.opencontainers.image.description=Intrusion prevention software framework that protects computer servers from brute-force attacks
