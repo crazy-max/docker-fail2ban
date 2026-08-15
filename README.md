@@ -82,7 +82,7 @@ docker buildx bake image-debian-all
 * `F2B_LOG_TARGET`: Set the log target. This could be a file, SYSLOG, STDERR or STDOUT (default `STDOUT`)
 * `F2B_LOG_LEVEL`: Log level output (default `INFO`)
 * `F2B_DB_PURGE_AGE`: Age at which bans should be purged from the database (default `1d`)
-* `IPTABLES_MODE`: Choose between iptables `nft` or `legacy` mode. (default `auto`)
+* `IPTABLES_MODE`: Set iptables mode to `auto`, `nft` or `legacy` (default `auto`)
 
 ## Volumes
 
