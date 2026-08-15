@@ -1,0 +1,30 @@
+name: fail2ban
+
+services:
+  geoip-updater:
+    image: crazymax/geoip-updater:latest
+    volumes:
+      - "geoip-updater:/data"
+    env_file:
+      - "./geoip-updater.env"
+    environment:
+      - "TZ"
+    restart: always
+
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    container_name: fail2ban
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - "./data:/data"
+      - "geoip-updater:/data/geoip:ro"
+      - "/var/log:/var/log:ro"
+    env_file:
+      - "./fail2ban.env"
+    restart: always
+
+volumes:
+  geoip-updater:
