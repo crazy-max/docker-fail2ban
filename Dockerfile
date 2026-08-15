@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 ARG FAIL2BAN_VERSION=1.1.0
-ARG ALPINE_VERSION=3.23
+ARG ALPINE_VERSION=3.24
 
 FROM --platform=$BUILDPLATFORM scratch AS src
 ARG FAIL2BAN_VERSION
@@ -31,7 +31,6 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
     py3-pip \
     python3-dev \
   && cd /tmp/fail2ban \
-  && 2to3 -w --no-diffs bin/* fail2ban \
   && python3 setup.py install --without-tests \
   && apk del build-dependencies \
   && rm -rf /etc/fail2ban/jail.d /root/.cache

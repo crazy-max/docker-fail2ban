@@ -1,2 +1,3 @@
 [DEFAULT]
-action = smtp.py[host=localhost:2500, sendername=Fail2Ban, sender=foo@gmail.com, dest=foo@gmail.com]
+action = iptables-multiport[name=%(__name__)s, port="%(port)s", protocol="%(protocol)s", chain="%(chain)s"]
+         smtp.py[host=localhost:2500, sendername=Fail2Ban, sender=foo@gmail.com, dest=foo@gmail.com]
