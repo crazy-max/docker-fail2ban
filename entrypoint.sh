@@ -9,8 +9,8 @@ IPTABLES_MODE=${IPTABLES_MODE:-auto}
 
 # Timezone
 echo "Setting timezone to ${TZ}..."
-ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime
-echo ${TZ} > /etc/timezone
+ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime
+echo "${TZ}" >/etc/timezone
 
 # Init
 echo "Initializing files and folders..."
