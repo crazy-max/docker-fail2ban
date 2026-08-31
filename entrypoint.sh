@@ -61,8 +61,8 @@ elif [ "$IPTABLES_MODE" = "legacy" ]; then
 fi
 if [ "$iptablesLegacy" -eq 1 ]; then
   if command -v update-alternatives >/dev/null 2>&1; then
-    update-alternatives --set iptables /usr/sbin/iptables-legacy
-    update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+    update-alternatives --log /tmp/alternatives.log --set iptables /usr/sbin/iptables-legacy
+    update-alternatives --log /tmp/alternatives.log --set ip6tables /usr/sbin/ip6tables-legacy
   else
     ln -sf /usr/sbin/xtables-legacy-multi /usr/sbin/iptables
     ln -sf /usr/sbin/xtables-legacy-multi /usr/sbin/iptables-save
