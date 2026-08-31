@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 TZ=${TZ:-UTC}
 
@@ -52,7 +52,7 @@ for filter_path in /data/filter.d/*; do
 done
 
 iptablesLegacy=0
-if [ "$IPTABLES_MODE" = "auto" ] && ! iptables -L &> /dev/null; then
+if [ "$IPTABLES_MODE" = "auto" ] && ! iptables -L &>/dev/null; then
   echo "WARNING: iptables-nft is not supported by the host, falling back to iptables-legacy"
   iptablesLegacy=1
 elif [ "$IPTABLES_MODE" = "legacy" ]; then
@@ -60,7 +60,7 @@ elif [ "$IPTABLES_MODE" = "legacy" ]; then
   iptablesLegacy=1
 fi
 if [ "$iptablesLegacy" -eq 1 ]; then
-  if command -v update-alternatives > /dev/null 2>&1; then
+  if command -v update-alternatives >/dev/null 2>&1; then
     update-alternatives --set iptables /usr/sbin/iptables-legacy
     update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
   else
