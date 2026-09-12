@@ -1,0 +1,6 @@
+[DEFAULT]
+# Preserve the image defaults instead of inheriting Debian's nftables/systemd defaults.
+banaction = iptables-multiport
+banaction_allports = iptables-allports
+sshd_backend = %(default_backend)s
+postfix_backend = %(default_backend)s
