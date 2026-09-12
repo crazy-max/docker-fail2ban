@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG FAIL2BAN_VERSION=1.1.0
+ARG FAIL2BAN_VERSION=1.1.1
 ARG ALPINE_VERSION=3.24
 ARG DEBIAN_VERSION=trixie-slim
 
@@ -43,7 +43,7 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
   && apt-get clean \
   && rm -rf /etc/fail2ban/jail.d /root/.cache /var/lib/apt/lists/*
 
-COPY entrypoint.sh /entrypoint.sh
+COPY rootfs /
 
 ENV TZ="UTC"
 
@@ -85,7 +85,7 @@ RUN --mount=from=src,target=/tmp/fail2ban,rw \
   && apk del build-dependencies \
   && rm -rf /etc/fail2ban/jail.d /root/.cache
 
-COPY entrypoint.sh /entrypoint.sh
+COPY rootfs /
 
 ENV TZ="UTC"
 

@@ -74,7 +74,7 @@ docker buildx bake image-debian-all
 * `debian`, `<version>-debian`, `edge-debian`
 
 > `<version>` has to be replaced with one of the Fail2ban releases available
-> (e.g. `1.1.0`). Tags without a `debian` suffix are Alpine-based.
+> (e.g. `1.1.1`). Tags without a `debian` suffix are Alpine-based.
 
 ## Environment variables
 
@@ -177,6 +177,11 @@ $ docker exec -t <CONTAINER> fail2ban-client set <JAIL> banip <IP>
 
 You can provide customizations in `/data/jail.d/*.local` files.
 
+Both image variants default to `iptables-multiport` / `iptables-allports`
+ban actions and `backend = auto` for SSH and Postfix. You can override these
+in your jail configuration. Journal monitoring requires the Debian variant
+and mounted host journals, as shown in the [systemd example](examples/systemd).
+
 For example, to change the default bantime for all jails:
 
 ```text
@@ -222,7 +227,7 @@ You need to set `LICENSE_KEY` in `geoip-updater.env`.
 ### Sending email using a sidecar container
 
 If you want to send emails using a sidecar container, see the example in
-[examples/smtp](examples/smtp). It uses the [smtp.py action](https://github.com/fail2ban/fail2ban/blob/1.1.0/config/action.d/smtp.py)
+[examples/smtp](examples/smtp). It uses the [smtp.py action](https://github.com/fail2ban/fail2ban/blob/1.1.1/config/action.d/smtp.py)
 and [msmtpd SMTP relay](https://github.com/crazy-max/docker-msmtpd) image.
 
 ### systemd journal backend
