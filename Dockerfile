@@ -1,7 +1,10 @@
 # syntax=docker/dockerfile:1
 
+# renovate: datasource=github-tags depName=fail2ban/fail2ban
 ARG FAIL2BAN_VERSION=1.1.1
+# renovate: datasource=docker depName=alpine versioning=docker
 ARG ALPINE_VERSION=3.24
+# renovate: datasource=docker depName=debian versioning=debian
 ARG DEBIAN_VERSION=trixie-slim
 
 FROM --platform=$BUILDPLATFORM scratch AS src
